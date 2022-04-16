@@ -1,3 +1,2 @@
-# Flask + MongoDB Template
+# EZ Wheels - Team Terminal Unit 4 Project
 
-Use this folder to get started building a Flask app with a MongoDB database.
