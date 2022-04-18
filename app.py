@@ -16,22 +16,34 @@
 # -- Import section --
 from flask import Flask
 from flask import render_template
-from flask import request, redirect
+from flask import request, redirect, session
 from flask_pymongo import PyMongo
+import os
+import bcrypt
+import model
 
 # -- Initialization section --
 app = Flask(__name__)
 
 # name of database
-# app.config['MONGO_DBNAME'] = 'database'
+app.config['MONGO_DBNAME'] = 'database'
 
 # URI of database
-# app.config['MONGO_URI'] = "<replace_with_real_mongodb_url>"
+app.config['MONGO_URI'] = "mongodb+srv://admin:" + os.environ.get('TPASSWORD') + "@cluster0.bguvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 #Initialize PyMongo
-# mongo = PyMongo(app)
+mongo = PyMongo(app)
+# mongo.db.create_collection('cars')
+# mongo.db.create_collection('seller_information')
+# mongo.db.create_collection('car_reports')
+
 
 # -- Routes section --
+# SEED Route
+@app.route('/seed')
+def seed():
+    return redirect('/')
+
 # INDEX Route
 @app.route('/')
 @app.route('/index')
@@ -45,7 +57,18 @@ def sign_in():
         return render_template('sign_in.html')
     else:
         #set session here
-        pass
+        users = mongo.db.seller_information
+        sign_in_user = users.find_one({'email': request.form['email']})
+        if not sign_in_user:
+            return "invalid email/password combo"
+        else:
+            db_password = sign_in_user['password_hash']
+            input_password = request.form['password'].encode('utf-8')
+            if bcrypt.checkpw(input_password, db_password):
+                session['user'] = model.sign_in(request.form['email'], request.form['password'].encode('utf-8'))
+                return redirect('/')
+            else:
+                return "invalid email/password combo"
 
 # SIGN UP Route
 @app.route('/sign_up', methods=['GET', 'POST'])

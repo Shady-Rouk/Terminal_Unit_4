@@ -11,3 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
+import pymongo
+import bcrypt
+from seller import *
+
+client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ.get('TPASSWORD') + "@cluster0.bguvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.myFirstDatabase
+
+def sign_in(email, password_hash):
+    sellerDB = db.seller_information
+    user = sellerDB.find_one({'email': email})
+    person = Seller.from_document(user)
+    return person
+
+
+def sign_up(firstname, lastname, email, phone, password_hash):
+    pass
