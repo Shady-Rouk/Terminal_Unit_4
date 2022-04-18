@@ -44,6 +44,7 @@ def sign_in():
     if request.method == 'GET':
         return render_template('sign_in.html')
     else:
+        #set session here
         pass
 
 # SIGN UP Route
@@ -52,16 +53,17 @@ def sign_up():
     if request.method == 'GET':
         return render_template('sign_up.html')
     else:
+        #set session here
         pass
 
 # MY ACCOUNT Route
-@app.route('myaccount', methods=['GET', 'POST'])
-def my_account():
-    if request.method == 'GET':
-        #get username from session, do a check for session
-        return render_template('my_account.html')
-    else:
-        pass
+# @app.route('myaccount', methods=['GET', 'POST'])
+# def my_account():
+#     if request.method == 'GET':
+#         #get username from session, do a check for session
+#         return render_template('my_account.html')
+#     else:
+#         pass
 
 # MY LISTINGS Route
 @app.route('my_listings', methods=['GET', 'POST'])
