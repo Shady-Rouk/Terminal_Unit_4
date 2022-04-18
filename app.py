@@ -23,13 +23,13 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 
 # name of database
-app.config['MONGO_DBNAME'] = 'database'
+# app.config['MONGO_DBNAME'] = 'database'
 
 # URI of database
-app.config['MONGO_URI'] = "<replace_with_real_mongodb_url>"
+# app.config['MONGO_URI'] = "<replace_with_real_mongodb_url>"
 
 #Initialize PyMongo
-mongo = PyMongo(app)
+# mongo = PyMongo(app)
 
 # -- Routes section --
 # INDEX Route
@@ -48,7 +48,7 @@ def sign_in():
         pass
 
 # SIGN UP Route
-@app.route('sign_up', methods=['GET', 'POST'])
+@app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'GET':
         return render_template('sign_up.html')
@@ -66,7 +66,7 @@ def sign_up():
 #         pass
 
 # MY LISTINGS Route
-@app.route('my_listings', methods=['GET', 'POST'])
+@app.route('/my_listings', methods=['GET', 'POST'])
 def my_listings():
     if request.method == 'GET':
         #get username from session, do a check for session
@@ -75,7 +75,7 @@ def my_listings():
         pass
 
 # CREATE LISTING Route
-@app.route('create_listing', methods=['GET', 'POST'])
+@app.route('/create_listing', methods=['GET', 'POST'])
 def create_listing():
     if request.method == 'GET':
         #get username from session, do a check for session
