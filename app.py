@@ -37,3 +37,46 @@ mongo = PyMongo(app)
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+# SIGN IN Route
+@app.route('/sign_in', methods=['GET', 'POST'])
+def sign_in():
+    if request.method == 'GET':
+        return render_template('sign_in.html')
+    else:
+        pass
+
+# SIGN UP Route
+@app.route('sign_up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'GET':
+        return render_template('sign_up.html')
+    else:
+        pass
+
+# MY ACCOUNT Route
+@app.route('myaccount', methods=['GET', 'POST'])
+def my_account():
+    if request.method == 'GET':
+        #get username from session, do a check for session
+        return render_template('my_account.html')
+    else:
+        pass
+
+# MY LISTINGS Route
+@app.route('my_listings', methods=['GET', 'POST'])
+def my_listings():
+    if request.method == 'GET':
+        #get username from session, do a check for session
+        return render_template('my_listings.html')
+    else:
+        pass
+
+# CREATE LISTING Route
+@app.route('create_listing', methods=['GET', 'POST'])
+def create_listing():
+    if request.method == 'GET':
+        #get username from session, do a check for session
+        return render_template('create_listing.html')
+    else:
+        pass
