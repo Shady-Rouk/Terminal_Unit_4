@@ -50,7 +50,11 @@ def seed():
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    if session:
+        # return render_template('index.html') with session
+        return render_template('index.html')
+    else:
+        return render_template('index.html')
 
 # SIGN IN Route
 @app.route('/sign_in', methods=['GET', 'POST'])
@@ -114,3 +118,9 @@ def create_listing():
         return render_template('create_listing.html')
     else:
         pass
+
+# LOGOUT Route
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
