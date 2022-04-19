@@ -46,7 +46,7 @@ mongo = PyMongo(app)
 def seed():
     return redirect('/')
 
-# INDEX Route
+# HOME Route
 @app.route('/')
 @app.route('/home')
 def home():
