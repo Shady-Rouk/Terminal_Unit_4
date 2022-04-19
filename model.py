@@ -19,7 +19,7 @@ from seller import *
 client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ.get('TPASSWORD') + "@cluster0.bguvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.myFirstDatabase
 
-def sign_in(email, password_hash):
+def get_user(email, password_hash):
     sellerDB = db.seller_information
     user = sellerDB.find_one({'email': email})
     person = Seller.from_document(user)
