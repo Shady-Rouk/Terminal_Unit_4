@@ -71,8 +71,8 @@ def sign_in():
             db_password = sign_in_user['password_hash']
             input_password = request.form['password'].encode('utf-8')
             if bcrypt.checkpw(input_password, db_password):
-                user_obj = model.sign_in(request.form['email'], request.form['password'].encode('utf-8'))
-                session['user'] = user_obj.email
+                # user_obj = model.get_user(request.form['email'], request.form['password'].encode('utf-8'))
+                session['user'] = request.form['email']
                 return redirect('/')
             else:
                 return "invalid email/password combo"
