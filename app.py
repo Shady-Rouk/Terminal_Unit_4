@@ -16,24 +16,111 @@
 # -- Import section --
 from flask import Flask
 from flask import render_template
-from flask import request, redirect
+from flask import request, redirect, session
 from flask_pymongo import PyMongo
+import os
+import bcrypt
+import model
 
 # -- Initialization section --
 app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 # name of database
 app.config['MONGO_DBNAME'] = 'database'
 
 # URI of database
-app.config['MONGO_URI'] = "<replace_with_real_mongodb_url>"
+app.config['MONGO_URI'] = "mongodb+srv://admin:" + os.environ.get('TPASSWORD') + "@cluster0.bguvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 #Initialize PyMongo
 mongo = PyMongo(app)
+# mongo.db.create_collection('cars')
+# mongo.db.create_collection('seller_information')
+# mongo.db.create_collection('car_reports')
+
 
 # -- Routes section --
+# SEED Route
+@app.route('/seed')
+def seed():
+    return redirect('/')
+
 # INDEX Route
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    if session:
+        # return render_template('index.html') with session
+        return render_template('index.html')
+    else:
+        return render_template('index.html')
+
+# SIGN IN Route
+@app.route('/sign_in', methods=['GET', 'POST'])
+def sign_in():
+    if request.method == 'GET':
+        return render_template('sign_in.html')
+    else:
+        #set session here
+        users = mongo.db.seller_information
+        sign_in_user = users.find_one({'email': request.form['email']})
+        if not sign_in_user:
+            return "invalid email/password combo"
+        else:
+            db_password = sign_in_user['password_hash']
+            input_password = request.form['password'].encode('utf-8')
+            if bcrypt.checkpw(input_password, db_password):
+                user_obj = model.sign_in(request.form['email'], request.form['password'].encode('utf-8'))
+                session['user'] = user_obj.email
+                return redirect('/')
+            else:
+                return "invalid email/password combo"
+
+# SIGN UP Route
+@app.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'GET':
+        return render_template('sign_up.html')
+    else:
+        #set session here
+        users = mongo.db.seller_information
+        existing_user = users.find_one({'email': request.form['email']})
+        if not existing_user:
+            f_name = request.form['firstname']
+            l_name = request.form['lastname']
+            email = request.form['email']
+            phone = request.form['phone']
+            password = request.form['password'].encode('utf-8')
+            salt = bcrypt.gensalt()
+            password_hash = bcrypt.hashpw(password, salt)
+            person_obj = model.sign_up(f_name, l_name, email, phone, password_hash)
+            session['user'] = person_obj.email
+            return redirect('/')
+        else:
+            return "email is already registered. try signing in instead"
+            
+
+# MY LISTINGS Route
+@app.route('/my_listings', methods=['GET', 'POST'])
+def my_listings():
+    if request.method == 'GET':
+        #get username from session, do a check for session
+        return render_template('my_listings.html')
+    else:
+        pass
+
+# CREATE LISTING Route
+@app.route('/create_listing', methods=['GET', 'POST'])
+def create_listing():
+    if request.method == 'GET':
+        #get username from session, do a check for session
+        return render_template('create_listing.html')
+    else:
+        pass
+
+# LOGOUT Route
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
