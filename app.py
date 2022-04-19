@@ -48,8 +48,8 @@ def seed():
 
 # INDEX Route
 @app.route('/')
-@app.route('/index')
-def index():
+@app.route('/home')
+def home():
     if session:
         # return render_template('index.html') with session
         return render_template('index.html')
@@ -104,23 +104,39 @@ def sign_up():
 # MY LISTINGS Route
 @app.route('/my_listings', methods=['GET', 'POST'])
 def my_listings():
-    if request.method == 'GET':
-        #get username from session, do a check for session
-        return render_template('my_listings.html')
+    if session:
+        if request.method == 'GET':
+            #get username from session, do a check for session
+            return render_template('my_listings.html')
+        else:
+            pass
     else:
-        pass
+        return "you have to be signed in first"
 
 # CREATE LISTING Route
 @app.route('/create_listing', methods=['GET', 'POST'])
 def create_listing():
-    if request.method == 'GET':
-        #get username from session, do a check for session
-        return render_template('create_listing.html')
+    if session:
+        if request.method == 'GET':
+            #get username from session, do a check for session
+            return render_template('create_listing.html')
+        else:
+            pass
     else:
-        pass
-
+        return "you have to be signed in first"
+        
 # LOGOUT Route
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
+
+# CARS Route
+@app.route('/cars', methods=['GET', 'POST'])
+def cars():
+    pass
+
+# ABOUT Route
+@app.route('/about')
+def about():
+    return render_template('about.html')
