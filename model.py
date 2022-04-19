@@ -27,4 +27,8 @@ def sign_in(email, password_hash):
 
 
 def sign_up(firstname, lastname, email, phone, password_hash):
-    pass
+    sellerDB = db.seller_information
+    person = Seller(firstname, lastname, email, phone, password_hash)
+    db_format = person.to_document()
+    sellerDB.insert_one(db_format)
+    return person

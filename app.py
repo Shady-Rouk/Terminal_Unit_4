@@ -24,6 +24,8 @@ import model
 
 # -- Initialization section --
 app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 # name of database
 app.config['MONGO_DBNAME'] = 'database'
@@ -65,7 +67,8 @@ def sign_in():
             db_password = sign_in_user['password_hash']
             input_password = request.form['password'].encode('utf-8')
             if bcrypt.checkpw(input_password, db_password):
-                session['user'] = model.sign_in(request.form['email'], request.form['password'].encode('utf-8'))
+                user_obj = model.sign_in(request.form['email'], request.form['password'].encode('utf-8'))
+                session['user'] = user_obj.email
                 return redirect('/')
             else:
                 return "invalid email/password combo"
@@ -77,16 +80,22 @@ def sign_up():
         return render_template('sign_up.html')
     else:
         #set session here
-        pass
-
-# MY ACCOUNT Route
-# @app.route('myaccount', methods=['GET', 'POST'])
-# def my_account():
-#     if request.method == 'GET':
-#         #get username from session, do a check for session
-#         return render_template('my_account.html')
-#     else:
-#         pass
+        users = mongo.db.seller_information
+        existing_user = users.find_one({'email': request.form['email']})
+        if not existing_user:
+            f_name = request.form['firstname']
+            l_name = request.form['lastname']
+            email = request.form['email']
+            phone = request.form['phone']
+            password = request.form['password'].encode('utf-8')
+            salt = bcrypt.gensalt()
+            password_hash = bcrypt.hashpw(password, salt)
+            person_obj = model.sign_up(f_name, l_name, email, phone, password_hash)
+            session['user'] = person_obj.email
+            return redirect('/')
+        else:
+            return "email is already registered. try signing in instead"
+            
 
 # MY LISTINGS Route
 @app.route('/my_listings', methods=['GET', 'POST'])
