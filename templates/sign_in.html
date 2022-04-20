@@ -1,21 +1,25 @@
 <!DOCTYPE html> 
-<html>
+<html class="signin">
     <head>
         <title>Sign In</title>
         <meta charset="utf8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <link rel="stylesheet" href="../static/css/style.css">
     </head>
-    <body>
-        <form method="POST" action="/sign_in">
-            <label for="email">Email</label>
-            <br>
-            <input type="email" name="email">
-            <br>
-            <label for="password">Password</label>
-            <br>
-            <input type="password" name="password">
-            <br>
-            <input type="submit" value="Sign In">
-            <br>
-        </form>
+    <body class="signin">
+        <div class="form">
+            <center><h1>Sign In</h1></center>
+            <form method="POST" action="/sign_in">
+                <label for="email">Email</label>
+                <br>
+                <input type="email" name="email" class="form" required>
+                <br>
+                <label for="password">Password</label>
+                <br>
+                <input type="password" name="password" class="form" required>
+                <br>
+                <input type="submit" value="Sign In" class="form-submit">
+            </form>
+        </div>
     </body>
 </html>
