@@ -9,6 +9,12 @@
     <body class="signin">
         <div class="form">
             <center><h1>Sign In</h1></center>
+            {% if not valid %}
+            <div class="error-box">
+                <p>That email/password combination is not valid. Please check that your sign in credentials are correct and try again.</p>
+            </div>
+            <br>
+            {% endif %}
             <form method="POST" action="/sign_in">
                 <label for="email">Email</label>
                 <br>
@@ -20,6 +26,7 @@
                 <br>
                 <input type="submit" value="Sign In" class="form-submit">
             </form>
+            <br><br><p>Don't have an account yet? Sign Up <a href="/sign_up">here!</a></p>
         </div>
     </body>
 </html>

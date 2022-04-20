@@ -9,6 +9,12 @@
     <body class="signup">
         <div class="form">
             <center><h1>Sign Up</h1></center>
+            {% if not valid %}
+            <div class="error-box">
+                <p>That email address is already registered. Please try a different email address or try <a href='/sign_in'>signing in</a>.</p>
+            </div>
+            <br>
+            {% endif %}
             <form method="POST" action="/sign_up">
                 <label for="firstname">Firstname</label>
                 <br>
@@ -33,5 +39,7 @@
                 <input type="submit" value="Sign Up" class="form-submit">
                 <br>
             </form>
+            <br><br><p>Already have an account? Sign In <a href="/sign_in">here!</a></p>
+        </div>
     </body>
 </html>

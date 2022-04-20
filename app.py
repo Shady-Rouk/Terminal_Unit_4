@@ -60,13 +60,13 @@ def home():
 @app.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'GET':
-        return render_template('sign_in.html')
+        return render_template('sign_in.html', valid=True)
     else:
         #set session here
         users = mongo.db.seller_information
         sign_in_user = users.find_one({'email': request.form['email']})
         if not sign_in_user:
-            return "invalid email/password combo"
+            return render_template('sign_in.html', valid=False)
         else:
             db_password = sign_in_user['password_hash']
             input_password = request.form['password'].encode('utf-8')
@@ -75,13 +75,13 @@ def sign_in():
                 session['user'] = request.form['email']
                 return redirect('/')
             else:
-                return "invalid email/password combo"
+                return render_template('sign_in.html', valid=False)
 
 # SIGN UP Route
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'GET':
-        return render_template('sign_up.html')
+        return render_template('sign_up.html', valid=True)
     else:
         #set session here
         users = mongo.db.seller_information
@@ -98,7 +98,7 @@ def sign_up():
             session['user'] = person_obj.email
             return redirect('/')
         else:
-            return "email is already registered. try signing in instead"
+            return render_template('sign_up.html', valid=False)
             
 
 # MY LISTINGS Route
