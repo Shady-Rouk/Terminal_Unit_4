@@ -73,7 +73,7 @@ def sign_in():
             if bcrypt.checkpw(input_password, db_password):
                 # user_obj = model.get_user(request.form['email'], request.form['password'].encode('utf-8'))
                 session['user'] = request.form['email']
-                return redirect('/')
+                return redirect('/my_listings')
             else:
                 return render_template('sign_in.html', valid=False)
 
@@ -96,7 +96,7 @@ def sign_up():
             password_hash = bcrypt.hashpw(password, salt)
             person_obj = model.sign_up(f_name, l_name, email, phone, password_hash)
             session['user'] = person_obj.email
-            return redirect('/')
+            return redirect('/my_listings')
         else:
             return render_template('sign_up.html', valid=False)
             
@@ -111,7 +111,7 @@ def my_listings():
         else:
             pass
     else:
-        return "you have to be signed in first"
+        return "you have to be signed in first" #create error page?
 
 # CREATE LISTING Route
 @app.route('/create_listing', methods=['GET', 'POST'])
@@ -123,7 +123,7 @@ def create_listing():
         else:
             pass
     else:
-        return "you have to be signed in first"
+        return "you have to be signed in first" #create error page?
         
 # LOGOUT Route
 @app.route('/logout')
