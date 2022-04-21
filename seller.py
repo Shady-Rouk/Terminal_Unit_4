@@ -26,5 +26,5 @@ class Seller:
         cars = self.cars
         return {'first_name':f_name, 'last_name': l_name, 'email': email, 'phone': phone, 'password_hash': password_hash, 'cars': cars}
 
-    def add_car(self, car):
-        pass
+    def add_car(self, car_id):
+        self.cars.append(car_id)
