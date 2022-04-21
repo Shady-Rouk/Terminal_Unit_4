@@ -15,6 +15,21 @@ body {
     --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
   }
+  nav li{
+    display: inline;
+    padding: 5px;
+ }
+ .nav ul{
+     list-style-type: none;
+     display: inline;
+ }
+ .nav{
+     float: right;
+ }
+ .nav a:link, .nav a:active, .nav a:hover, .nav a:visited{
+     color: white;
+     text-decoration: none;
+ }
   .navbar-expand {
     flex-wrap: nowrap;
     justify-content: flex-start;
