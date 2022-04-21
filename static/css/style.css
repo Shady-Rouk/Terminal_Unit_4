@@ -27,7 +27,7 @@ body {
      float: right;
  }
  .nav a:link, .nav a:active, .nav a:hover, .nav a:visited{
-     color: white;
+     color: black;
      text-decoration: none;
  }
   .navbar-expand {
