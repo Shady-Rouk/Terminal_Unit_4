@@ -111,7 +111,7 @@ def my_listings():
         else:
             pass
     else:
-        return "you have to be signed in first" #create error page?
+        return redirect('/sign_in')
 
 # CREATE LISTING Route
 @app.route('/create_listing', methods=['GET', 'POST'])
@@ -123,7 +123,7 @@ def create_listing():
         else:
             pass
     else:
-        return "you have to be signed in first" #create error page?
+        return redirect('/sign_in')
         
 # LOGOUT Route
 @app.route('/logout')
