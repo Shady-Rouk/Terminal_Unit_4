@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="listings">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu|Montserrat-Black" rel = "stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/7e81a4b5a2.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>My Listings - EzWheels</title>
+</head>
+
+<body class="listings">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {% if not session %}
+    <a class="navbar-brand" href="/home">EzWheels</a>
+    {% else %}
+    <a class="navbar-brand" href="#">EzWheels</a>
+    {% endif %}
+    <ul class="navbar-nav ml-auto">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsupported">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                  <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
+                </li>
+            <li class="nav-item active">
+                  <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+  </nav>
+
+  <div class="create">
+      <a href='/create_listing'><button class="create-b">Create New Listing</button></a>
+  </div>
+  <br><br><br>
+
+  <div class="listingspace">
+      {% if my_cars != [] %}
+        {% for car in my_cars%}
+            <div class="car-listing">
+                <a href="/mark_sold/{{car.id}}"><div class="close">Sold</div></a> 
+                <img src="#" alt="car image">
+                <!--status sold vs not sold, include save changes button?-->
+                <!-- {{my_cars}} -->
+            </div>
+        {% endfor %}
+      {% else %}
+      <div class="listing-message">
+          <p>You have no current listings on your EzWheels Account</p>
+          <center><a href='/create_listing'><button class="create-b">Create New Listing</button></a></center>         
+      </div>
+      {% endif %}
+  </div>  
+  <footer class="bg-light footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-start my-auto h-100">
+                <ul class="list-inline mb-2">
+                    <li class="list-inline-item"><a href="#">About</a></li>
+                    <li class="list-inline-item"><span>⋅</span></li>
+                    <li class="list-inline-item"><a href="#">Contact</a></li>
+                    <li class="list-inline-item"><span>⋅</span></li>
+                    <li class="list-inline-item"><a href="#">Terms of  Use</a></li>
+                    <li class="list-inline-item"><span>⋅</span></li>
+                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <p class="text-muted small mb-4 mb-lg-0">© EzWheels 2022. All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-6 text-center text-lg-end my-auto h-100">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook fa-2x fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter fa-2x fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram fa-2x fa-fw"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </footer>
+</body>
+</html>
