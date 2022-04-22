@@ -51,11 +51,14 @@
 
   <div class="listingspace">
       {% if my_cars != [] %}
-      <div class="car-listing">
-          <img src="#" alt="car image">
-          <!--status sold vs not sold, include save changes button?-->
-          <!-- {{my_cars}} -->
-      </div>
+        {% for car in my_cars%}
+            <div class="car-listing">
+                <a href="/mark_sold/{{car.id}}"><div class="close">Sold</div></a> 
+                <img src="#" alt="car image">
+                <!--status sold vs not sold, include save changes button?-->
+                <!-- {{my_cars}} -->
+            </div>
+        {% endfor %}
       {% else %}
       <div class="listing-message">
           <p>You have no current listings on your EzWheels Account</p>

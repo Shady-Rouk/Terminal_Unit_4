@@ -471,7 +471,9 @@ body.listings, html.listings{
     margin: 20px 20px;
     height: 45%;
     width: 25%;
-    background-color: green;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
 }
 
 .listing-message{
@@ -502,3 +504,10 @@ div.create{
     cursor: pointer;
     border-radius: 5px;
 }
+
+.close{
+    float: right;
+    background-color: red;
+    color: white;
+    padding: 4px;
+  }

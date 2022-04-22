@@ -152,3 +152,12 @@ def cars():
 @app.route('/about')
 def about():
     return render_template('about.html', session=session)
+
+# MARK_SOLD Route
+@app.route('/mark_sold/<car_id>', methods=['GET', 'POST'])
+def mark_sold(car_id):
+    if session:
+        #change to sold in database
+        return redirect('/my_listings')
+    else:
+        return redirect('/sign_in')
