@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>Home - EzWheels</title>
+    <title>Create Listings - EzWheels</title>
 </head>
 
 <body>
@@ -38,3 +38,34 @@
             </ul>
         </div>
   </nav>
+  <div class="signup">
+    <div class="form">
+        <center><h1>Create New Listing</h1></center>
+        <form method="POST" action="/sign_up">
+            <label for="firstname">Firstname</label>
+            <br>
+            <input type="text" name="firstname" class="form" required>
+            <br>
+            <label for="lastname">Lastname</label>
+            <br>
+            <input type="text" name="lastname" class="form" required>
+            <br>
+            <label for="email">Email</label>
+            <br>
+            <input type="email" name="email" class="form" required>
+            <br>
+            <label for="phone">Phone Number</label>
+            <br>
+            <input type="text" name="phone" class="form" required>
+            <br>
+            <label for="password">Picture (Enter a url link)</label>
+            <br>
+            <input type="text" name="picture" class="form" required>
+            <br>
+            <input type="submit" value="Submit" class="form-submit">
+            <br>
+        </form>
+    </div>
+</div>
+</body>
+</html>
