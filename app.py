@@ -143,7 +143,10 @@ def logout():
 # CARS Route
 @app.route('/cars', methods=['GET', 'POST'])
 def cars():
-    pass
+    if request.method == 'GET':
+        return render_template('cars.html', session=session)
+    else:
+        pass
 
 # ABOUT Route
 @app.route('/about')
