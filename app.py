@@ -21,6 +21,7 @@ from flask_pymongo import PyMongo
 import os
 import bcrypt
 import model
+from bson.objectid import ObjectId
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -107,7 +108,15 @@ def my_listings():
     if session:
         if request.method == 'GET':
             #get username from session, do a check for session
-            return render_template('my_listings.html')
+            users = mongo.db.seller_information
+            curr_user = users.find_one({'email': session['user']})
+            user_car_ids = curr_user['cars'] #user_car_ids is a list of car IDs
+            cars = [] #list of car documents, should be converted to car objects? with individual attributes
+            for car_id in user_car_ids:
+                car = mongo.db.cars.find_one({'_id': ObjectId(car_id)})
+                cars.append(car)
+            # cars = [Car(group[all parameters]) for group in cars]
+            return render_template('my_listings.html', my_cars=cars, user=curr_user) #my_cars(for car details) and user(for details) used for jinja in my_listings.html
         else:
             pass
     else:
