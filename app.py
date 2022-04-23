@@ -72,8 +72,9 @@ def sign_in():
             db_password = sign_in_user['password_hash']
             input_password = request.form['password'].encode('utf-8')
             if bcrypt.checkpw(input_password, db_password):
-                # user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
+                user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
                 session['user'] = request.form['email']
+                session['phone'] = user_obj.phone
                 return redirect('/my_listings')
             else:
                 return render_template('sign_in.html', valid=False)
@@ -97,6 +98,7 @@ def sign_up():
             password_hash = bcrypt.hashpw(password, salt)
             person_obj = sign_up_create(f_name, l_name, email, phone, password_hash)
             session['user'] = person_obj.email
+            session['phone'] = person_obj.phone
             return redirect('/my_listings')
         else:
             return render_template('sign_up.html', valid=False)
