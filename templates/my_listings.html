@@ -59,7 +59,7 @@
                 {% if not car['sold']%}
                     <a href="/mark_sold/{{car['_id']}}"><div class="close">Mark Sold</div></a>
                 {% else %}
-                    <div class="close">Sold</div>
+                    <div class="close sold">Sold</div>
                 {% endif %} 
                 <br>
                 <center><img src="{{car['picture']}}" alt="car image" class="list-img"></center>

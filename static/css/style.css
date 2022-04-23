@@ -516,6 +516,10 @@ div.create{
     padding: 4px;
   }
 
+.sold{
+    background-color: green;
+}
+
 .list-img{
     height: 70%;
     width: 80%;
