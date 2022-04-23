@@ -132,7 +132,9 @@ def create_listing():
             #get username from session, do a check for session
             return render_template('create_listing.html', session=session)
         else:
-            try:            
+            try: 
+                new_car = request.form
+                new_car_doc = create_car(new_car)          
                 return redirect('/my_listings')
 
             except ValueError as err:
