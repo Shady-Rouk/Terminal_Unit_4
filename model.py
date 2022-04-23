@@ -26,7 +26,7 @@ def get_user(email, password_hash):
     return person
 
 
-def sign_up(firstname, lastname, email, phone, password_hash):
+def sign_up_create(firstname, lastname, email, phone, password_hash):
     sellerDB = db.seller_information
     person = Seller(firstname, lastname, email, phone, password_hash)
     db_format = person.to_document()

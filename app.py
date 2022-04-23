@@ -20,7 +20,7 @@ from flask import request, redirect, session
 from flask_pymongo import PyMongo
 import os
 import bcrypt
-import model
+from model import *
 from bson.objectid import ObjectId
 
 # -- Initialization section --
@@ -72,7 +72,7 @@ def sign_in():
             db_password = sign_in_user['password_hash']
             input_password = request.form['password'].encode('utf-8')
             if bcrypt.checkpw(input_password, db_password):
-                # user_obj = model.get_user(request.form['email'], request.form['password'].encode('utf-8'))
+                # user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
                 session['user'] = request.form['email']
                 return redirect('/my_listings')
             else:
@@ -95,7 +95,7 @@ def sign_up():
             password = request.form['password'].encode('utf-8')
             salt = bcrypt.gensalt()
             password_hash = bcrypt.hashpw(password, salt)
-            person_obj = model.sign_up(f_name, l_name, email, phone, password_hash)
+            person_obj = sign_up_create(f_name, l_name, email, phone, password_hash)
             session['user'] = person_obj.email
             return redirect('/my_listings')
         else:
