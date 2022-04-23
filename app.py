@@ -130,7 +130,16 @@ def create_listing():
             #get username from session, do a check for session
             return render_template('create_listing.html')
         else:
-            return redirect('/my_listings')
+            try:            
+                return redirect('/')
+
+            except ValueError as err:
+                error_message = str(err)
+                return redirect('/create_listing')
+            
+            except TypeError as err:
+                error_message = str(err)
+                return redirect('/create_listing')
     else:
         return redirect('/sign_in')
         
@@ -146,6 +155,7 @@ def cars():
     if request.method == 'GET':
         return render_template('cars.html', session=session)
     else:
+        
         pass
 
 # ABOUT Route
