@@ -137,19 +137,22 @@ def create_listing():
                 new_car = {'make': request.form['make'], 'model':request.form['model'], 'year':request.form['year'], 'color':request.form['color'], 'price':request.form['price'], 'phone':request.form['phone'], 'email':request.form['email'], 'picture': request.form['picture']}
                 new_car_doc = create_car(new_car)
                 car_id = mongo.db.cars.find_one(new_car_doc)['_id']
+                car_id = str(car_id)
                 user = mongo.db.seller_information.find_one({'email': session['user']})
                 user = get_user(session['user'], user['password_hash'])
                 user.add_car(car_id)
                 user = user.to_document()
-                mongo.db.seller_information.update_one({'email': session['user']}, user)                          
+                mongo.db.seller_information.update_one({'email': session['user']}, {'$set': user})                          
                 return redirect('/my_listings')
 
             except ValueError as err:
                 error_message = str(err)
+                print(error_message)
                 return redirect('/create_listing')
             
             except TypeError as err:
                 error_message = str(err)
+                print(error_message)
                 return redirect('/create_listing')
     else:
         return redirect('/sign_in')
