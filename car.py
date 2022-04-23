@@ -32,7 +32,7 @@ class Car:
             raise ValueError("Price not the right format")
         if not(form['year'].isnumeric()):
             raise ValueError("Year not the right format")
-        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['brand']) != str or type(form['category']) != str or type(form['price']) != str or type(form['energy']) != str or type(form['transmissio']) != str: 
+        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['make']) != str or type(form['model']) != str or type(form['price']) != str or type(form['year']) != str or type(form['color']) != str: 
             raise TypeError("Invalid format")
         elif int(form['phone']) > 10000000000 or int(form['phone']) <= 999999999:
             raise ValueError("Number not the right format")
