@@ -133,8 +133,15 @@ def create_listing():
             return render_template('create_listing.html', session=session)
         else:
             try: 
-                new_car = request.form
-                new_car_doc = create_car(new_car)          
+                # new_car = request.form
+                new_car = {'make': request.form['make'], 'model':request.form['model'], 'year':request.form['year'], 'color':request.form['color'], 'price':request.form['price'], 'phone':request.form['phone'], 'email':request.form['email'], 'picture': request.form['picture']}
+                new_car_doc = create_car(new_car)
+                car_id = mongo.db.cars.find_one(new_car_doc)['_id']
+                user = mongo.db.seller_information.find_one({'email': session['user']})
+                user = get_user(session['user'], user['password_hash'])
+                user.add_car(car_id)
+                user = user.to_document()
+                mongo.db.seller_information.update_one({'email': session['user']}, user)                          
                 return redirect('/my_listings')
 
             except ValueError as err:
