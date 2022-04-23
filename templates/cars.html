@@ -109,107 +109,32 @@
                         </div>
                         <div class="col-md-9">
                             <div class="products">
-                                <div class="row g-0">
-                                    <div class="col-12 col-md-6 col-lg-4">
                                         <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/2007H.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">2007 Honda Accord</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$8,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/tesla.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">2021 Tesla Model Y</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$45,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/ram.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">Ram 1500 Classic</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$20,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/jeep.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">Jeep Gladiator</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$30,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/bmw.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">2016 BMW 320</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$10,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/bmw230.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">2020 BMW 230</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$13,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/pole.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">Polestar 1</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$150,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/fiat.jpeg" /></a></div>
-                                            <div class="product-name"><a href="#">FIAT 124 Spider</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$25,300</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="clean-product-item">
-                                            <div class="image"><a href="#"><img class="img-fluid d-block mx-auto" src="cars/royal.jpeg" /></a><a href="#"></a></div>
-                                            <div class="product-name"><a href="#">2021 Royal Enfield Meteor 350</a></div>
-                                            <div class="about">
-                                                <div class="price">
-                                                    <h3>$4,000</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <div class="listingspace">
+                                                {% if cars_list != [] %}
+                                                  {% for car in cars_list%}
+                                                    <div class="car-listing">
+                                                        <center><img src="{{car['picture']}}" alt="car image" class="list-img"></center>
+                                                        <h3>{{car['year']}} {{car['make']}} {{car['model']}}</h3>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="feature-box col-lg-4">
+                                                            <h4> Color: {{car['color']}}</h4>
+                                                            <h4> Price: {{car['price']}}</h4>
+                                                            </div>
+                                                            <div class="feature-box col-lg-4">
+                                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Contact Info </a>
+                                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                    <a class="dropdown-item">{{car['email']}}</a>
+                                                                    <a class="dropdown-item">{{car['phone']}}</a>
+                                                                </div>
+                                                            </div>
+                                                        <!--status sold vs not sold, include save changes button?-->
+                                                        <!-- {{car}} -->
+                                                    </div>
+                                                  {% endfor %}
+                                    
+    
                                 <nav>
                                     <ul class="pagination">
                                         <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -219,8 +144,6 @@
                                         <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                                     </ul>
                                 </nav>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

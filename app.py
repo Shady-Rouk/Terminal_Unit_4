@@ -167,9 +167,10 @@ def logout():
 @app.route('/cars', methods=['GET', 'POST'])
 def cars():
     if request.method == 'GET':
-        return render_template('cars.html', session=session)
+        vehicles = mongo.db.cars
+        cars_list = vehicles.find({'sold': False})
+        return render_template('cars.html', session=session, cars_list=cars_list)
     else:
-        
         pass
 
 # ABOUT Route
