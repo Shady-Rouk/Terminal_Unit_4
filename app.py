@@ -130,7 +130,7 @@ def create_listing():
             #get username from session, do a check for session
             return render_template('create_listing.html')
         else:
-            pass
+            return redirect('/my_listings')
     else:
         return redirect('/sign_in')
         
