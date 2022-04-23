@@ -182,6 +182,11 @@ def about():
 def mark_sold(car_id):
     if session:
         #change to sold in database
+        car = mongo.db.cars.find_one({'_id': ObjectId(car_id)})
+        car = Car.from_document(car)
+        car.sold = True
+        car = car.to_document()
+        mongo.db.cars.update_one({'_id': ObjectId(car_id)}, {'$set': car})
         return redirect('/my_listings')
     else:
         return redirect('/sign_in')

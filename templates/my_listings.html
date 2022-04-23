@@ -56,7 +56,11 @@
       {% if my_cars != [] %}
         {% for car in my_cars%}
             <div class="car-listing">
-                <a href="/mark_sold/{{car['_id']}}"><div class="close">Mark Sold</div></a> 
+                {% if not car['sold']%}
+                    <a href="/mark_sold/{{car['_id']}}"><div class="close">Mark Sold</div></a>
+                {% else %}
+                    <div class="close">Sold</div>
+                {% endif %} 
                 <br>
                 <center><img src="{{car['picture']}}" alt="car image" class="list-img"></center>
                 <!--status sold vs not sold, include save changes button?-->
