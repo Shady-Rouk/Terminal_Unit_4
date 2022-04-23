@@ -32,6 +32,9 @@
       <div class="collapse navbar-collapse" id="navbarsupported">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
+                <a class="nav-link" href="/my_listings">My Listings<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
@@ -53,8 +56,9 @@
       {% if my_cars != [] %}
         {% for car in my_cars%}
             <div class="car-listing">
-                <a href="/mark_sold/{{car.id}}"><div class="close">Sold</div></a> 
-                <img src="#" alt="car image">
+                <a href="/mark_sold/{{car.id}}"><div class="close">Mark Sold</div></a> 
+                <br>
+                <center><img src="../static/images/002.jpg" alt="car image" class="list-img"></center>
                 <!--status sold vs not sold, include save changes button?-->
                 <!-- {{my_cars}} -->
             </div>
