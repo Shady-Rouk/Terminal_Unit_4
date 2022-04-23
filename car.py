@@ -1,4 +1,4 @@
-class Seller:
+class Car:
     def __init__(self, make, model, year, color, price, email, phone, picture, sold=False, verified = False):
         self.make = make
         self.model = model

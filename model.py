@@ -36,7 +36,7 @@ def sign_up_create(firstname, lastname, email, phone, password_hash):
 
 def create_car(new_car):
     carDB = db.cars
-    new_car = Seller.from_form(new_car)
+    new_car = Car.from_form(new_car)
     new_car_doc = new_car.to_document()
     carDB.insert_one(new_car_doc)
     return new_car_doc
