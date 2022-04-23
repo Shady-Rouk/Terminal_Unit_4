@@ -50,7 +50,7 @@ class Seller:
         phone = document['phone']
         password_hash = document['password_hash']
         cars = document['cars']
-        return Seller(f_name, l_name, email, phone, password_hash, cars)
+        return cls(f_name, l_name, email, phone, password_hash, cars)
 
     def to_document(self):
         """Converts a Seller object instance to JSON format.
