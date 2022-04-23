@@ -1,11 +1,15 @@
 class Seller:
-    def __init__(self, firstname, lastname, email, phone, picture, sold=False):
-        self.firstname = firstname
-        self.lastname = lastname
+    def __init__(self, make, model, year, color, price, email, phone, picture, sold=False, verified = False):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.color = color
+        self.price = price
         self.email = email
         self.phone = phone
         self.picture = picture
         self.sold = sold
+        self.verified = verified
     def set_sale_status(self, sale_status):
         pass
         
@@ -24,24 +28,24 @@ class Seller:
         """
         if form == None:
             raise ValueError("Form data must be provided")
-        if not(all(letter.isalpha() or letter.isspace() for letter in form['firstname'])):
-            raise TypeError("Name not the right format")
-        if not(all(letter.isalpha() or letter.isspace() for letter in form['lastname'])):
-            raise TypeError("Name not the right format")
-        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str: 
+        if not(form['price'].isnumeric()):
+            raise ValueError("Price not the right format")
+        if not(form['year'].isnumeric()):
+            raise ValueError("Year not the right format")
+        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['brand']) != str or type(form['category']) != str or type(form['price']) != str or type(form['energy']) != str or type(form['transmissio']) != str: 
             raise TypeError("Invalid format")
         elif int(form['phone']) > 10000000000 or int(form['phone']) <= 999999999:
             raise ValueError("Number not the right format")
         else:
             form['sold'] = False
-            return cls(form['firstname'], form['lastname'], form['phone'], form['email'], form['picture'], form['sold'])
+            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'], form['sold'])
 
      
     @classmethod
     def from_document(cls,document):
         """Creates a Seller object instance from values in a dictionary.
         Args:
-            document (dict): The key-value pairs to be used to create the GeneralReview object.
+            document (dict): The key-value pairs to be used to create the Seller object.
         Errors:
             Raises ValueError if document is None.
         Returns:
@@ -50,14 +54,14 @@ class Seller:
         """
         if document == None:
             raise ValueError("Form data must be provided")
-        return cls(document['firstname'], document['lastname'], document['phone'], document['email'], document['picture'], document['sold'])
+        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'])
 
     def to_document(self):
-        """Converts a GeneralReview object instance to a dictionary format.
+        """Converts a Seller object instance to a dictionary format.
         Returns:
-            dict: A document representation of the GeneralReview object instance.
+            dict: A document representation of the Seller object instance.
         """
-        return {'firstame':self.firstname, 'lastname':self.lastname, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold}
+        return {'make':self.make, 'model':self.model, 'year':self.year, 'color':self.color, 'price':self.price, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold}
 
 
     

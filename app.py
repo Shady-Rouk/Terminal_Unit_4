@@ -128,10 +128,10 @@ def create_listing():
     if session:
         if request.method == 'GET':
             #get username from session, do a check for session
-            return render_template('create_listing.html')
+            return render_template('create_listing.html', session=session)
         else:
             try:            
-                return redirect('/')
+                return redirect('/my_listings')
 
             except ValueError as err:
                 error_message = str(err)

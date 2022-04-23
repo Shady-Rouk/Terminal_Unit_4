@@ -15,11 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<<<<<<< HEAD
     <title>Create Listings - EzWheels</title>
-=======
-    <title>Create Listing - EzWheels</title>
->>>>>>> dfaa1ff8b528955d6c8b50ec304172f28d378673
 </head>
 
 <body>
@@ -53,22 +49,33 @@
   <div class="signup">
     <div class="form">
         <center><h1>Create New Listing</h1></center>
-        <form method="POST" action="/sign_up">
-            <label for="firstname">Firstname</label>
+        <form method="POST" action="/create_listing">
+            <label for="carName">Car Name</label>
             <br>
-            <input type="text" name="firstname" class="form" required>
+            <input type="text" name="carName" class="form" required>
             <br>
-            <label for="lastname">Lastname</label>
+            <label for="category">Vehicle Category (Car, Truck or Motorcycle)</label>
             <br>
-            <input type="text" name="lastname" class="form" required>
+            <input type="text" name="category" class="form" required>
+            <label for="energy">Energy Efficient (Electric, Gas or Hybrid)</label>
             <br>
+            <input type="text" name="energy" class="form" required>
+            <br>
+            <label for="transmission">Transmission (Automatic or Manual)</label>
+            <br>
+            <input type="text" name="transmission" class="form" required>
+            <br>
+            <label for="price">Price</label>
+            <br>
+            <input type="text" name="price" class="form" required>
+            <br>   
             <label for="email">Email</label>
             <br>
-            <input type="email" name="email" class="form" required>
+            <input type="hidden" name="email" class="form" value="{{session['user']}}" required>
             <br>
             <label for="phone">Phone Number</label>
             <br>
-            <input type="text" name="phone" class="form" required>
+            <input type="hidden" name="phone" class="form" value="{{session['phone']}}" required>
             <br>
             <label for="password">Picture (Enter a url link)</label>
             <br>
