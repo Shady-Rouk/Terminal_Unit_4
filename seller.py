@@ -28,6 +28,14 @@ class Seller:
             password_hash (Binary): The hashed form of a seller's account password.
             cars (list): The list of car id's listed by a seller.
         """
+        if type(first_name) != str or type(last_name) != str or type(email) != str or type(phone) != str:
+            raise TypeError('first_name, last_name, email and phone should be strings should be strings')
+        if not phone.isnumeric():
+            raise ValueError('Characters in phone should be numeric')
+        if int(phone) > 10000000000 or int(phone) <= 999999999:
+            raise ValueError('Input a valid phone number')
+        if type(cars) != list:
+            raise TypeError('cars should be a list')
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -44,6 +52,17 @@ class Seller:
         Returns:
             Seller: A Seller object instance constructed with the values from document.
         """
+        if type(document) != dict:
+            raise TypeError('document should be a dictionary object')
+        if type(document['first_name']) != str or type(document['last_name']) != str or type(document['email']) != str or type(document['phone']) != str:
+            raise TypeError('first_name, last_name, email and phone should be strings should be strings')
+        if not document['phone'].isnumeric():
+            raise ValueError('Characters in phone should be numeric')
+        if int(document['phone']) > 10000000000 or int(document['phone']) <= 999999999:
+            raise ValueError('Input a valid phone number')
+        if type(document['cars']) != list:
+            raise TypeError('cars should be a list')
+        
         f_name = document['first_name']
         l_name = document['last_name']
         email = document['email']

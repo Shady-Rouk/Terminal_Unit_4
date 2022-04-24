@@ -63,21 +63,23 @@ def sign_in():
     if request.method == 'GET':
         return render_template('sign_in.html', valid=True)
     else:
-        #set session here
-        users = mongo.db.seller_information
-        sign_in_user = users.find_one({'email': request.form['email']})
-        if not sign_in_user:
-            return render_template('sign_in.html', valid=False)
-        else:
-            db_password = sign_in_user['password_hash']
-            input_password = request.form['password'].encode('utf-8')
-            if bcrypt.checkpw(input_password, db_password):
-                user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
-                session['user'] = request.form['email']
-                session['phone'] = user_obj.phone
-                return redirect('/my_listings')
-            else:
+        try:#set session here
+            users = mongo.db.seller_information
+            sign_in_user = users.find_one({'email': request.form['email']})
+            if not sign_in_user:
                 return render_template('sign_in.html', valid=False)
+            else:
+                db_password = sign_in_user['password_hash']
+                input_password = request.form['password'].encode('utf-8')
+                if bcrypt.checkpw(input_password, db_password):
+                    user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
+                    session['user'] = request.form['email']
+                    session['phone'] = user_obj.phone
+                    return redirect('/my_listings')
+                else:
+                    return render_template('sign_in.html', valid=False)
+        except:
+            return redirect('/sign_in')
 
 # SIGN UP Route
 @app.route('/sign_up', methods=['GET', 'POST'])
@@ -85,23 +87,26 @@ def sign_up():
     if request.method == 'GET':
         return render_template('sign_up.html', valid=True)
     else:
-        #set session here
-        users = mongo.db.seller_information
-        existing_user = users.find_one({'email': request.form['email']})
-        if not existing_user:
-            f_name = request.form['firstname']
-            l_name = request.form['lastname']
-            email = request.form['email']
-            phone = request.form['phone']
-            password = request.form['password'].encode('utf-8')
-            salt = bcrypt.gensalt()
-            password_hash = bcrypt.hashpw(password, salt)
-            person_obj = sign_up_create(f_name, l_name, email, phone, password_hash)
-            session['user'] = person_obj.email
-            session['phone'] = person_obj.phone
-            return redirect('/my_listings')
-        else:
-            return render_template('sign_up.html', valid=False)
+        try:
+            #set session here
+            users = mongo.db.seller_information
+            existing_user = users.find_one({'email': request.form['email']})
+            if not existing_user:
+                f_name = request.form['firstname']
+                l_name = request.form['lastname']
+                email = request.form['email']
+                phone = request.form['phone']
+                password = request.form['password'].encode('utf-8')
+                salt = bcrypt.gensalt()
+                password_hash = bcrypt.hashpw(password, salt)
+                person_obj = sign_up_create(f_name, l_name, email, phone, password_hash)
+                session['user'] = person_obj.email
+                session['phone'] = person_obj.phone
+                return redirect('/my_listings')
+            else:
+                return render_template('sign_up.html', valid=False)
+        except:
+            return redirect('/sign_up')
             
 
 # MY LISTINGS Route

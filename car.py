@@ -61,7 +61,7 @@ class Car:
         Returns:
             dict: A document representation of the Seller object instance.
         """
-        return {'make':self.make, 'model':self.model, 'year':self.year, 'color':self.color, 'price':self.price, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold}
+        return {'make':self.make, 'model':self.model, 'year':self.year, 'color':self.color, 'price':self.price, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold, 'verified': self.verified}
 
 
     
