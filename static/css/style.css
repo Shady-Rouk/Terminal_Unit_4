@@ -470,7 +470,7 @@ body {
     flex-flow: row wrap;
     border: 2px solid black;
     border-radius: 5px;
-    height: 100%;
+    height: auto;
     width: 100%;
     overflow: hidden;
     margin: auto;
@@ -490,9 +490,11 @@ body.listings, html.listings{
     border-radius: 5px;
 }
 .car-box{
-    margin: 20px 20px;
-    height: 50%;
-    width: 25%;
+    display: flex;
+    flex-flow: row wrap;    
+    margin: 15px 15px;
+    height: 250px;
+    width: 40%;
     background-color: white;
     border: 1px solid grey;
     border-radius: 5px;

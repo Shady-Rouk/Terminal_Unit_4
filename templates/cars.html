@@ -60,6 +60,7 @@
                     <h2 class="text-primary">Catalog Page</h2>
                     <p>Come find the car of your dreams here! You can use the categories to filter your searches.</p>
                 </div>
+                <br>
                 <div class="content">
                     <div class="row">
                         <div class="col-md-3">
@@ -108,25 +109,24 @@
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <div class="products">
+                            <div class="car-row">
                                 {% if cars_list != [] %}
                                     {% for car in cars_list%}
-                                        <div class="clean-product-item">
+                                    <div class="car-box">
                                             <center><img src="{{car['picture']}}" alt="car image" class="list-img"></center>
-                                            <h3>{{car['year']}} {{car['make']}} {{car['model']}}</h3>
+                                            <center><h6>{{car['year']}} {{car['make']}} {{car['model']}}</h6></center>
                                             <br>
                                             <div class="row">
+                                                <div class="feature-box col-lg-6">
+                                                <p> Color: {{car['color']}} | Price: {{car['price']}}</p>
+                                                </div>
                                                 <div class="feature-box col-lg-4">
-                                                <h4> Color: {{car['color']}}</h4>
-                                                <h4> Price: {{car['price']}}</h4>
-                                                </div>
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Contact Info </a>
+                                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item">{{car['email']}}</a>
+                                                        <a class="dropdown-item">{{car['phone']}}</a>
+                                                    </div>
                                             </div>
-                                            <div class="feature-box col-lg-4">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Contact Info </a>
-                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item">{{car['email']}}</a>
-                                                    <a class="dropdown-item">{{car['phone']}}</a>
-                                                </div>
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -138,19 +138,10 @@
                                     
                             </div>
                         </div>
-                <center>
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                        </ul>
-                    </nav>
-                </center>
         </section>
     </main>
+<br>
+<br>    
     <footer class="bg-light footer">
         <div class="container">
             <div class="row">
