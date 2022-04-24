@@ -10,21 +10,19 @@ class Car:
         self.picture = picture
         self.sold = sold
         self.verified = verified
-    def set_sale_status(self, sale_status):
-        pass
         
     @classmethod
     def from_form(cls, form):
-        """Creates a Seller object instance from values in a dictionary.
+        """Creates a Car object instance from values in a dictionary.
         Args:
-            form (dict): The key-value pairs to be used to create the Seller object.
+            form (dict): The key-value pairs to be used to create the Car object.
         Errors:
             Raises ValueError if document is None.
             Raises TypeError is name isnt all alphabetic
             Raises TypeError if the datatypes are not strings
             Raises ValueError if phone number is not within range
         Returns:
-            Seller: A Seller object instance built with the values from document.
+            Car: A Car object instance built with the values from document.
         """
         if form == None:
             raise ValueError("Form data must be provided")
@@ -43,23 +41,23 @@ class Car:
      
     @classmethod
     def from_document(cls,document):
-        """Creates a Seller object instance from values in a dictionary.
+        """Creates a Car object instance from values in a dictionary.
         Args:
-            document (dict): The key-value pairs to be used to create the Seller object.
+            document (dict): The key-value pairs to be used to create the Car object.
         Errors:
             Raises ValueError if document is None.
         Returns:
             or
-            Seller: A Seller object instance built with the values from document.
+            Car: A Car object instance built with the values from document.
         """
         if document == None:
             raise ValueError("Form data must be provided")
         return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'])
 
     def to_document(self):
-        """Converts a Seller object instance to a dictionary format.
+        """Converts a Car object instance to a dictionary format.
         Returns:
-            dict: A document representation of the Seller object instance.
+            dict: A document representation of the Car object instance.
         """
         return {'make':self.make, 'model':self.model, 'year':self.year, 'color':self.color, 'price':self.price, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold, 'verified': self.verified}
 
