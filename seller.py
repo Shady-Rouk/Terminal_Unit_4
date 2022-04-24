@@ -91,4 +91,7 @@ class Seller:
         Args:
             car_id (str): The id of a car object that makes its identification possible.
         """
+        if type(car_id) != str:
+            raise TypeError('Car id should be stored as a string')
+        
         self.cars.append(car_id)
