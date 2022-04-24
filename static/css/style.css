@@ -500,7 +500,7 @@ body.listings, html.listings{
 
 .listing-message{
     width: 50%;
-    margin: auto;
+    margin: 15% auto;
     border: 1px solid grey;
     border-radius: 5px;
     height: 50%;
