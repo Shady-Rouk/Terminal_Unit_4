@@ -458,7 +458,7 @@ body {
     flex-flow: row wrap;
     border: 2px solid black;
     border-radius: 5px;
-    height: 80%;
+    height: auto;
     width: 75%;
     overflow: hidden;
     margin: auto;
