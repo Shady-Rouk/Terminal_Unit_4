@@ -498,6 +498,7 @@ body.listings, html.listings{
     background-color: white;
     border: 1px solid grey;
     border-radius: 5px;
+    padding-left: 1%;
 }
 
 .listing-message{
@@ -564,20 +565,8 @@ div.create{
     width: 80%;
     margin: auto;
 }
-@media (min-width: 768px) {
-    .clean-block.clean-catalog .products {
-      padding: 30px 30px 30px 0;
-    }
-  }
-  @media (min-width: 768px) {
-    .clean-block.clean-catalog .products .clean-product-item {
-      border-right: 1px solid #e8e6e6;
-    }
-  }
-  .clean-product-item {
-    padding: 20px;
-    border-bottom: 1px solid #e8e6e6;
-    height: 100%;
-  }
-  
-    
+.list-image{
+    height: 135px;
+    width: 210px;
+    margin: auto;
+}
