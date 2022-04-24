@@ -458,7 +458,7 @@ body {
     flex-flow: row wrap;
     border: 2px solid black;
     border-radius: 5px;
-    height: 80%;
+    height: auto;
     width: 75%;
     overflow: hidden;
     margin: auto;
@@ -502,7 +502,7 @@ body.listings, html.listings{
 
 .listing-message{
     width: 50%;
-    margin: auto;
+    margin: 15% auto;
     border: 1px solid grey;
     border-radius: 5px;
     height: 50%;
