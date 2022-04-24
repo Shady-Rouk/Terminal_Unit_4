@@ -78,12 +78,16 @@
                                                 <p>Price: ${{car['price']}}</p>
                                             </center>
                                                 </div>
+                                                <div class = "vertical"></div>                                                
                                                 <div class="feature-box col-lg-3.5">
                                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Contact Info </a>
                                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                         <a class="dropdown-item">{{car['email']}}</a>
                                                         <a class="dropdown-item">{{car['phone']}}</a>
                                                     </div>
+                                                    {% if car['verified'] == True %}
+                                                    <h6><img class="tick" src= "../static/images/bluetick.png">Verified </h6>
+                                                    {% endif %}
                                             </div>
                                             </div>
                                         </div>
@@ -104,13 +108,9 @@
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-start my-auto h-100">
                     <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="#">About</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Contact</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Terms of  Use</a></li>
-                        <li class="list-inline-item"><span>⋅</span></li>
-                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="/about">About</a></li>
+                    <li class="list-inline-item"><span>⋅</span></li>
+                    <li class="list-inline-item"><a href="/cars">Browse Cars</a></li>
                     </ul>
                     <p class="text-muted small mb-4 mb-lg-0">© EzWheels 2022. All Rights Reserved.</p>
                 </div>

@@ -30,6 +30,9 @@ body {
      color: black;
      text-decoration: none;
  }
+ .nav-link{
+    text-decoration: none;
+ }
   .navbar-expand {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -227,7 +230,7 @@ body {
   .btn-lg, .btn-group-lg > .btn {
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border-radius: .3rem;
+    border-radius: .3rem;    
   }
   .btn {
     display: inline-block;
@@ -296,8 +299,8 @@ body {
   .g-0, .gx-0 {
     --bs-gutter-x: 0;
   }
-  .showcase .showcase-- {
-    min-height: 30rem;
+  .showcase-img {
+    height: 550px;
     background-size: cover;
   }
   @media (min-width: 992px) {
@@ -468,8 +471,7 @@ body {
 .car-row{
     display: flex;
     flex-flow: row wrap;
-    border: 2px solid black;
-    border-radius: 5px;
+    border: None;
     height: auto;
     width: 100%;
     overflow: hidden;
@@ -496,8 +498,7 @@ body.listings, html.listings{
     height: 250px;
     width: 40%;
     background-color: white;
-    border: 1px solid grey;
-    border-radius: 5px;
+    border: None;
     padding-left: 1%;
 }
 
@@ -569,4 +570,8 @@ div.create{
     height: 135px;
     width: 210px;
     margin: auto;
+}
+.tick{
+    height : 30px;
+    width : 30px;
 }
