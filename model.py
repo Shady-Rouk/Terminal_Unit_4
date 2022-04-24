@@ -15,6 +15,8 @@ import os
 import pymongo
 import bcrypt
 from seller import *
+from CarReports import *
+from bson.objectid import ObjectId
 
 client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ.get('TPASSWORD') + "@cluster0.bguvn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.myFirstDatabase
@@ -32,3 +34,60 @@ def sign_up(firstname, lastname, email, phone, password_hash):
     db_format = person.to_document()
     sellerDB.insert_one(db_format)
     return person
+
+def validate(car_id):
+
+    if len(car_id) != 24:
+        return False
+
+    for el in car_id:
+        if el not in '0123456789ABCDEabcde':
+            return False
+
+    return True
+
+def verify_id_exists(car_id):
+
+    carsDB = db.cars
+    # car_ids = carsDB.find({}, {'make': 0, 'model':0, 'year':0, 'color':0, 'price':0, 'phone':0, 
+    # 'email':0, 'picture':0, 'sold':0, 'verified':0})
+    car_exists = carsDB.find_one({'_id': ObjectId(car_id)})
+    
+    return car_exists != None
+
+
+# would the object id clash if the id is slightly different.
+# how to find the id or what is the id given to the inspector
+# when updating the report DB should we put update and add to in the same function or different ones
+# _id and id column not the same thing
+
+def new_car_report(car_id, details, features, date):
+    #verify id is an int or string
+
+    car_reportDB = db.car_reports
+    report_exists = car_reportDB.find_one({'car_id': car_id})
+
+    if len(features) != 0:
+        features = features.split(',')
+    report_instance = CarReports(car_id, details, features, date)
+    is_verified = report_instance.isDetailsVerified()
+
+    if not is_verified:
+        # is this information useful to store
+        report_instance.getUnverified()
+
+    new_entry = report_instance.to_document()
+
+    if not report_exists:
+        car_reportDB.insert_one(new_entry)
+
+    else:
+        car_reportDB.update_one({'car_id': car_id}, 
+        {'$set': {'details': new_entry['details'], 'features':new_entry['features'], 
+        'is_verified': new_entry['is_verified'], 'unverified_details': new_entry['unverified_details'], 'date': new_entry['date']}})
+
+    if new_entry['is_verified']:
+        carDB = db.cars
+        carDB.update_one({'_id': ObjectId(new_entry['car_id'])}, {'$set': {'verified': True}})
+
+
