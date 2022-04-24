@@ -63,20 +63,23 @@ def sign_in():
     if request.method == 'GET':
         return render_template('sign_in.html', valid=True)
     else:
-        #set session here
-        users = mongo.db.seller_information
-        sign_in_user = users.find_one({'email': request.form['email']})
-        if not sign_in_user:
-            return render_template('sign_in.html', valid=False)
-        else:
-            db_password = sign_in_user['password_hash']
-            input_password = request.form['password'].encode('utf-8')
-            if bcrypt.checkpw(input_password, db_password):
-                # user_obj = model.get_user(request.form['email'], request.form['password'].encode('utf-8'))
-                session['user'] = request.form['email']
-                return redirect('/my_listings')
-            else:
+        try:#set session here
+            users = mongo.db.seller_information
+            sign_in_user = users.find_one({'email': request.form['email']})
+            if not sign_in_user:
                 return render_template('sign_in.html', valid=False)
+            else:
+                db_password = sign_in_user['password_hash']
+                input_password = request.form['password'].encode('utf-8')
+                if bcrypt.checkpw(input_password, db_password):
+                    user_obj = get_user(request.form['email'], request.form['password'].encode('utf-8'))
+                    session['user'] = request.form['email']
+                    session['phone'] = user_obj.phone
+                    return redirect('/my_listings')
+                else:
+                    return render_template('sign_in.html', valid=False)
+        except:
+            return redirect('/sign_in')
 
 # SIGN UP Route
 @app.route('/sign_up', methods=['GET', 'POST'])
@@ -84,22 +87,26 @@ def sign_up():
     if request.method == 'GET':
         return render_template('sign_up.html', valid=True)
     else:
-        #set session here
-        users = mongo.db.seller_information
-        existing_user = users.find_one({'email': request.form['email']})
-        if not existing_user:
-            f_name = request.form['firstname']
-            l_name = request.form['lastname']
-            email = request.form['email']
-            phone = request.form['phone']
-            password = request.form['password'].encode('utf-8')
-            salt = bcrypt.gensalt()
-            password_hash = bcrypt.hashpw(password, salt)
-            person_obj = model.sign_up(f_name, l_name, email, phone, password_hash)
-            session['user'] = person_obj.email
-            return redirect('/my_listings')
-        else:
-            return render_template('sign_up.html', valid=False)
+        try:
+            #set session here
+            users = mongo.db.seller_information
+            existing_user = users.find_one({'email': request.form['email']})
+            if not existing_user:
+                f_name = request.form['firstname']
+                l_name = request.form['lastname']
+                email = request.form['email']
+                phone = request.form['phone']
+                password = request.form['password'].encode('utf-8')
+                salt = bcrypt.gensalt()
+                password_hash = bcrypt.hashpw(password, salt)
+                person_obj = sign_up_create(f_name, l_name, email, phone, password_hash)
+                session['user'] = person_obj.email
+                session['phone'] = person_obj.phone
+                return redirect('/my_listings')
+            else:
+                return render_template('sign_up.html', valid=False)
+        except:
+            return redirect('/sign_up')
             
 
 # MY LISTINGS Route
@@ -128,9 +135,30 @@ def create_listing():
     if session:
         if request.method == 'GET':
             #get username from session, do a check for session
-            return render_template('create_listing.html')
+            return render_template('create_listing.html', session=session)
         else:
-            pass
+            try: 
+                # new_car = request.form
+                new_car = {'make': request.form['make'], 'model':request.form['model'], 'year':request.form['year'], 'color':request.form['color'], 'price':request.form['price'], 'phone':request.form['phone'], 'email':request.form['email'], 'picture': request.form['picture']}
+                new_car_doc = create_car(new_car)
+                car_id = mongo.db.cars.find_one(new_car_doc)['_id']
+                car_id = str(car_id)
+                user = mongo.db.seller_information.find_one({'email': session['user']})
+                user = get_user(session['user'], user['password_hash'])
+                user.add_car(car_id)
+                user = user.to_document()
+                mongo.db.seller_information.update_one({'email': session['user']}, {'$set': user})                          
+                return redirect('/my_listings')
+
+            except ValueError as err:
+                error_message = str(err)
+                print(error_message)
+                return redirect('/create_listing')
+            
+            except TypeError as err:
+                error_message = str(err)
+                print(error_message)
+                return redirect('/create_listing')
     else:
         return redirect('/sign_in')
         
@@ -144,7 +172,9 @@ def logout():
 @app.route('/cars', methods=['GET', 'POST'])
 def cars():
     if request.method == 'GET':
-        return render_template('cars.html', session=session)
+        vehicles = mongo.db.cars
+        cars_list = vehicles.find({'sold': False})
+        return render_template('cars.html', session=session, cars_list=cars_list)
     else:
         pass
 
@@ -193,3 +223,18 @@ def reports():
         else:
             return redirect('/reports/' + car_id)
 
+    return render_template('about.html', session=session)
+
+# MARK_SOLD Route
+@app.route('/mark_sold/<car_id>', methods=['GET', 'POST'])
+def mark_sold(car_id):
+    if session:
+        #change to sold in database
+        car = mongo.db.cars.find_one({'_id': ObjectId(car_id)})
+        car = Car.from_document(car)
+        car.sold = True
+        car = car.to_document()
+        mongo.db.cars.update_one({'_id': ObjectId(car_id)}, {'$set': car})
+        return redirect('/my_listings')
+    else:
+        return redirect('/sign_in')

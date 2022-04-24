@@ -20,22 +20,37 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="">EzWheels</a>
+    {% if not session %}
+    <a class="navbar-brand" href="/home">EzWheels</a>
+    {% else %}
+    <a class="navbar-brand" href="#">EzWheels</a>
+    {% endif %}
     <ul class="navbar-nav ml-auto">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsupported">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
+            {% if session %}
+            <li class="nav-item active">
+                  <a class="nav-link" href="/my_listings">My Listings<span class="sr-only">(current)</span></a>
                 </li>
+            {% endif %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
+            </li>
             <li class="nav-item active">
                   <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
                 </li>
+                {% if not session %}
             <li class="nav-item active">
-                  <a class="nav-link" href="/sign_in">Sign In <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/sign_in">Sign In <span class="sr-only">(current)</span></a>
                 </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
             </ul>
         </div>
   </nav>

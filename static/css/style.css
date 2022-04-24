@@ -30,6 +30,9 @@ body {
      color: black;
      text-decoration: none;
  }
+ .nav-link{
+    text-decoration: none;
+ }
   .navbar-expand {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -227,7 +230,7 @@ body {
   .btn-lg, .btn-group-lg > .btn {
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border-radius: .3rem;
+    border-radius: .3rem;    
   }
   .btn {
     display: inline-block;
@@ -296,8 +299,8 @@ body {
   .g-0, .gx-0 {
     --bs-gutter-x: 0;
   }
-  .showcase .showcase-img {
-    min-height: 30rem;
+  .showcase-img {
+    height: 550px;
     background-size: cover;
   }
   @media (min-width: 992px) {
@@ -458,26 +461,52 @@ body {
     flex-flow: row wrap;
     border: 2px solid black;
     border-radius: 5px;
-    height: 80%;
+    height: auto;
     width: 75%;
+    overflow: hidden;
     margin: auto;
+    padding-bottom: 6%;
+    justify-content: center;
 }
-
+.car-row{
+    display: flex;
+    flex-flow: row wrap;
+    border: None;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+    padding-bottom: 6%;
+    justify-content: center;
+}
 body.listings, html.listings{
     height: 100%;
 }
 
 .car-listing{
     margin: 20px 20px;
-    height: 45%;
+    height: 50%;
     width: 25%;
-    background-color: green;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.car-box{
+    display: flex;
+    flex-flow: row wrap;    
+    margin: 15px 15px;
+    height: 250px;
+    width: 40%;
+    background-color: white;
+    border: None;
+    padding-left: 1%;
 }
 
 .listing-message{
     width: 50%;
-    margin: auto;
-    border: 0.5px solid grey;
+    margin: 15% auto;
+    border: 1px solid grey;
+    border-radius: 5px;
     height: 50%;
     padding: 10%;
 }
@@ -566,3 +595,47 @@ div.create{
     border-radius: 5px;
     
 } */
+.clean-block .content {
+    box-shadow: 0px 2px 10px rgba(0,0,0,.075);
+    background-color: #fff;
+  }  
+.close{
+    float: right;
+    background-color: red;
+    color: white;
+    padding: 4px;
+  }
+  @media (min-width: 576px) {
+    .clean-block .block-heading {
+      padding-top: 80px;
+    }
+  }
+  .clean-block .block-heading {
+    margin-bottom: 40px;
+    text-align: center;
+  }  
+.sold{
+    background-color: green;
+}
+.clean-block.dark {
+    background-color: #f6f6f6;
+  }
+  @media (min-width: 576px) {
+    .clean-block {
+      padding-bottom: 100px;
+    }
+  }  
+.list-img{
+    height: 135px;
+    width: 80%;
+    margin: auto;
+}
+.list-image{
+    height: 135px;
+    width: 210px;
+    margin: auto;
+}
+.tick{
+    height : 30px;
+    width : 30px;
+}

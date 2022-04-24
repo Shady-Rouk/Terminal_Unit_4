@@ -20,13 +20,20 @@
 
 <body class="listings">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="">EzWheels</a>
+    {% if not session %}
+    <a class="navbar-brand" href="/home">EzWheels</a>
+    {% else %}
+    <a class="navbar-brand" href="#">EzWheels</a>
+    {% endif %}
     <ul class="navbar-nav ml-auto">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsupported">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/my_listings">My Listings<span class="sr-only">(current)</span></a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
             </li>
@@ -47,11 +54,22 @@
 
   <div class="listingspace">
       {% if my_cars != [] %}
-      <div class="car-listing">
-          <img src="#" alt="car image">
-          <!--status sold vs not sold, include save changes button?-->
-          <!-- {{my_cars}} -->
-      </div>
+        {% for car in my_cars%}
+            <div class="car-listing">
+                {% if not car['sold']%}
+                    <a href="/mark_sold/{{car['_id']}}"><div class="close">Mark Sold</div></a>
+                {% else %}
+                    <div class="close sold">Sold</div>
+                {% endif %} 
+                <br>
+                <div class="img-div"><center><img src="{{car['picture']}}" alt="car image" class="list-img"></center></div>
+                <br>
+                <center><strong><p><span>$ {{car['price']}}</span> | <span>{{car['year']}}</span> | <span>{{car['make']}}</span> | <span>{{car['model']}}</span></p></strong></center>
+                <!-- <center><p></p></center> -->
+                <!--status sold vs not sold, include save changes button?-->
+                <!-- {{car}} -->
+            </div>
+        {% endfor %}
       {% else %}
       <div class="listing-message">
           <p>You have no current listings on your EzWheels Account</p>
@@ -64,13 +82,9 @@
         <div class="row">
             <div class="col-lg-6 text-center text-lg-start my-auto h-100">
                 <ul class="list-inline mb-2">
-                    <li class="list-inline-item"><a href="#">About</a></li>
+                    <li class="list-inline-item"><a href="/about">About</a></li>
                     <li class="list-inline-item"><span>⋅</span></li>
-                    <li class="list-inline-item"><a href="#">Contact</a></li>
-                    <li class="list-inline-item"><span>⋅</span></li>
-                    <li class="list-inline-item"><a href="#">Terms of  Use</a></li>
-                    <li class="list-inline-item"><span>⋅</span></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="/cars">Browse Cars</a></li>
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">© EzWheels 2022. All Rights Reserved.</p>
             </div>

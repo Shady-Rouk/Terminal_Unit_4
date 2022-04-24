@@ -1,31 +1,65 @@
-class Seller:
-    def __init__(self, first_name, last_name, email, phone, inspect_state, image = []):
-        self.first_name = first_name
-        self.last_name = last_name
+class Car:
+    def __init__(self, make, model, year, color, price, email, phone, picture, sold=False, verified = False):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.color = color
+        self.price = price
         self.email = email
         self.phone = phone
-        self.inspect_state = inspect_state
-        self.image = image
-    def set_sale_status(self, sale_status):
+        self.picture = picture
+        self.sold = sold
+        self.verified = verified
         
     @classmethod
-    def from_document(cls, document):
-        f_name = document['first_name']
-        l_name = document['last_name']
-        email = document['email']
-        phone = document['phone']
-        inspect_state = document['inspect_state']
-        image = document['image']
-        return Seller(f_name, l_name, email, phone, inspect_state, image)
+    def from_form(cls, form):
+        """Creates a Car object instance from values in a dictionary.
+        Args:
+            form (dict): The key-value pairs to be used to create the Car object.
+        Errors:
+            Raises ValueError if document is None.
+            Raises TypeError is name isnt all alphabetic
+            Raises TypeError if the datatypes are not strings
+            Raises ValueError if phone number is not within range
+        Returns:
+            Car: A Car object instance built with the values from document.
+        """
+        if form == None:
+            raise ValueError("Form data must be provided")
+        if not(form['price'].isnumeric()):
+            raise ValueError("Price not the right format")
+        if not(form['year'].isnumeric()):
+            raise ValueError("Year not the right format")
+        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['make']) != str or type(form['model']) != str or type(form['price']) != str or type(form['year']) != str or type(form['color']) != str: 
+            raise TypeError("Invalid format")
+        elif int(form['phone']) > 10000000000 or int(form['phone']) <= 999999999:
+            raise ValueError("Number not the right format")
+        else:
+            form['sold'] = False
+            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'], form['sold'])
+
+     
+    @classmethod
+    def from_document(cls,document):
+        """Creates a Car object instance from values in a dictionary.
+        Args:
+            document (dict): The key-value pairs to be used to create the Car object.
+        Errors:
+            Raises ValueError if document is None.
+        Returns:
+            or
+            Car: A Car object instance built with the values from document.
+        """
+        if document == None:
+            raise ValueError("Form data must be provided")
+        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'])
 
     def to_document(self):
-        f_name = self.first_name
-        l_name = self.last_name
-        email = self.email
-        phone = self.phone
-        inspect_state = self.inspect_state
-        image = self.image
-        return {'first_name':f_name, 'last_name': l_name, 'email': email, 'phone': phone, 'password_hash': inspect_state, 'cars': image}
+        """Converts a Car object instance to a dictionary format.
+        Returns:
+            dict: A document representation of the Car object instance.
+        """
+        return {'make':self.make, 'model':self.model, 'year':self.year, 'color':self.color, 'price':self.price, 'phone':self.phone, 'email':self.email, 'picture': self.picture, 'sold':self.sold, 'verified': self.verified}
 
-    def add_car(self, car):
-        pass
+
+    
