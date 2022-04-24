@@ -21,6 +21,14 @@ client = pymongo.MongoClient("mongodb+srv://admin:" + os.environ.get('TPASSWORD'
 db = client.myFirstDatabase
 
 def get_user(email, password_hash):
+    """Creates an instance of a Seller from their email address and password_hash
+
+    Args:
+        email (str): The seller's email address to sign in.
+        password_hash (Binary): The hashed value for the seller's account password.
+    Returns:
+        Seller: An instance of the seller who is currently in session.
+    """
     sellerDB = db.seller_information
     user = sellerDB.find_one({'email': email})
     person = Seller.from_document(user)
@@ -28,6 +36,17 @@ def get_user(email, password_hash):
 
 
 def sign_up_create(firstname, lastname, email, phone, password_hash):
+    """Creates a new Seller object and adds the details to the seller_information collection in the database
+
+    Args:
+        firstname (str): The first name of the seller.
+        lastname (str): The last name of the seller.
+        email (str): The email address of the seller.
+        phone (str): The phone number of the seller.
+        password_hash (Binary): The hashed form of a seller's account password.
+    Returns:
+        Seller: An instance of the seller who just created an account.
+    """
     sellerDB = db.seller_information
     person = Seller(firstname, lastname, email, phone, password_hash)
     db_format = person.to_document()
