@@ -57,6 +57,16 @@ def sign_up_create(firstname, lastname, email, phone, password_hash):
 
 def validate(car_id):
 
+    '''
+    Checks to see if a potential car_id is in the correct format (length of 16 characters and hexadecimal)
+
+    Args:
+        car_id (str): the potential id of a car in the cars collection
+
+    Returns:
+        boolean: True if car_id is in the correct format, False if it is not. 
+    '''    
+
     if len(car_id) != 24:
         return False
 
@@ -68,21 +78,41 @@ def validate(car_id):
 
 def verify_id_exists(car_id):
 
+    '''
+    Checks to see if an id for a car is present in the cars collection
+
+    Args:
+        car_id (str): the potentital id of a car in the cars collection
+
+    Returns:
+        boolean: True if there is a car in the collection with the same id as car_id, False if there is not a car in the 
+        collection with the same id.
+    '''
+
     carsDB = db.cars
-    # car_ids = carsDB.find({}, {'make': 0, 'model':0, 'year':0, 'color':0, 'price':0, 'phone':0, 
-    # 'email':0, 'picture':0, 'sold':0, 'verified':0})
     car_exists = carsDB.find_one({'_id': ObjectId(car_id)})
     
     return car_exists != None
 
 
-# would the object id clash if the id is slightly different.
-# how to find the id or what is the id given to the inspector
-# when updating the report DB should we put update and add to in the same function or different ones
-# _id and id column not the same thing
-
 def new_car_report(car_id, details, features, date):
-    #verify id is an int or string
+    '''
+    Creates a CarReports instance using the parameters. Uses the passed in attribute values of the object to update the verified,
+    unverified_details attributes of the object. Checks whether or not the car's id already exists in the car_reports collection. 
+    If the car's id does exist, the fields associated with the car id are updated. If the car's id does not exist in the collection,
+    a new entry is inserted into the car_reports collection.
+
+    Args:
+        car_id (str): the potentital id of a car in the cars collection.
+        details(dict): contains general characteristics about the car (year, make, model, color) as keys,
+        and booleans as values.
+        features(str): additional features of the car for sale in the collection/database.
+        date(str): the date that the report was conducted.
+
+    returns:
+        None (void)
+        
+    '''
 
     car_reportDB = db.car_reports
     report_exists = car_reportDB.find_one({'car_id': car_id})
@@ -93,7 +123,6 @@ def new_car_report(car_id, details, features, date):
     is_verified = report_instance.isDetailsVerified()
 
     if not is_verified:
-        # is this information useful to store
         report_instance.getUnverified()
 
     new_entry = report_instance.to_document()

@@ -204,9 +204,7 @@ def car_report(car_id):
 
         return render_template("reports.html", valid=True, approved=True)
 
-
-
-
+#REPORTS ROUTE
 @app.route('/reports', methods=['GET', 'POST'])
 def reports():
     if request.method == "GET":

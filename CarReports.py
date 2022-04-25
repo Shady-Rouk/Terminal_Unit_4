@@ -1,8 +1,47 @@
 
 class CarReports:
+    '''
+    CarReports is a class that represents the instance of a Report for a Seller's car. 
+
+    CarReports objects can be generated and each instance has 6 instances:
+
+    - car_id
+    - details
+    - features
+    - verified
+    - unverified_details
+    - date
+
+    Attributes:
+
+    car_id: a string that represents the id of a specific car for sale in the collection/datbase.
+    details: a dictionary that contains general characteristics about the car (for example year, make, model, color) as keys,
+    and booleans as values - True if the characteristic is verified and False if the characteristic isn't.  
+    features: a string that represents additional features of the car for sale in the collection/database.
+    verified: a boolean that has a default value of False but is changed to True if all the values in details are True
+    unverified_details: a list that represents the general characteristics of the car (in details) for sale in the database that were not verified.
+    date: a string that represents the date that the report was made/conducted.
+
+    '''
 
     def __init__(self, car_id, details, features, date, verified=False, unverified_details = []):
+        '''
+        Constructor for a CarReports object. Creates an instance of a report for a car for sale.
 
+        Args:
+            car_id (string): represents the unique id of the car for sale in the collection/ database 
+            details (dictionary): represents core characteristics of the car for sale (strings) as keys and whether or not the core
+            characteristic is verified (booleans) as values. 
+            features (string): represents the additional features of the car for sale that are not part of the core characteristics. 
+            each feature is seperated by a comma or some delimiter.
+            date (string): represents the date that the report of the car was created 
+            verified (boolean): a boolean that represents whether or not the car is overall verified (all of the core characteristics are true in details)
+            unverified_details (list): represents a list of the unverified core characteristics of the car. 
+
+        Returns:
+            no return (void)
+
+        '''
         self.car_id = car_id
         self.details = details 
         self.features = features
@@ -11,6 +50,18 @@ class CarReports:
         self.date = date
 
     def isDetailsVerified(self):
+
+        '''
+        Checks to see if all the core characteristics of the car for sale have a True value in the attribute details. 
+        
+        Args:
+            None
+
+        Returns:
+            a boolean value that represents whether or not all the core characteristics are verified. 
+
+        '''
+
         is_verified = True
         for value in self.details.values():
             if value == False:
@@ -18,7 +69,20 @@ class CarReports:
         self.verified = is_verified
         return is_verified
 
+
     def getUnverified(self):
+
+        '''
+
+        Gets the unverified core characteristics of the car for sale. 
+
+        Args:
+            None
+
+        Returns:
+            A list of all the core characteristics of the car for sale that were not verified. 
+
+        '''
         output = []
         for key, value in self.details.items():
             if value == False:
@@ -26,29 +90,16 @@ class CarReports:
         self.unverified_details = output
         return output
 
-        
-    # do splitting outside of class
-    # def updateFeatures(self):
-
-    #     if type(self.features) == str:
-    #         features = self.features.split(',')
-    #         self.features = features
-    #         return
-    # def getUnverifiedFeatures(self):
-    #     output = []
-    #     for item in self.features:
-    #         if self.features[item] == False:
-    #             output.append(item)
-    #     return output
-
-    # def getVerifiedFeatures(self):
-    #     output = []
-    #     for item in self.features:
-    #         if self.features[item] == True:
-    #             output.append(item)
-    #     return output
 
     def to_document(self):
+
+        '''
+        Converts a CarReports object instance to a dictionary format
+
+        Returns:
+            dictionary:  a document representation of the CarReports object instance
+
+        '''
         return {'car_id': self.car_id, 
         'is_verified': self.verified, 
         'details': self.details, 
@@ -58,6 +109,16 @@ class CarReports:
 
     @classmethod
     def from_document(cls, document):
+
+        '''
+        Creates a CarReports object instance from values in a dictionary.
+
+        Args:
+            document (dicitonary): The key-value pairs to be used to create the CarReports object.
+
+        Returns:
+            CarReports: A CarReports object instance built with the values from document
+        '''
         keys = []
         for key in document.keys():
             if type(key) == str and key.isalpha():
