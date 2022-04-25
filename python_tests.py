@@ -102,6 +102,30 @@ class Test_CarReports(unittest.TestCase):
         self.assertEqual(self.car_1.unverified_details, ['model'])
         self.assertEqual(self.car_2.getUnverified(), [])
 
+    def test_to_document(self):
+        self.car_1.getUnverified()
+        self.car_2.getUnverified()  
+        self.car_2.isDetailsVerified()   
+ 
+        self.assertEqual(self.car_1.to_document(), {'car_id':'6265c76284e23511b9d08193', 'is_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverified_details': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"})
+        self.assertEqual(self.car_2.to_document(), {'car_id':'6265c76284e23511b9d08193', 'is_verified': True, 'details': {'make': True, 'model': True, 'color': True, 'year': True}, 'unverified_details': [], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"})
+
+    def test_from_document(self):
+
+        self.assertRaises(KeyError, CarReports.from_document, {'car_id':'6265c76284e23511b9d08193', 'is_not_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverified_details': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"})
+        self.assertRaises(KeyError, CarReports.from_document, {'car_id':'6265c76284e23511b9d08193', 'is_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverifieddetails': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"})
+        self.assertRaises(KeyError, CarReports.from_document, {'car_id':'6265c76284e23511b9d08193', 'is_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverified_details': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'dates': "04/24/2022"})
+        self.assertRaises(KeyError, CarReports.from_document, {'car_ids':'6265c76284e23511b9d08193', 'is_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverified_details': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"})
+        
+        test_report = {'car_id':'6265c76284e23511b9d08193', 'is_verified': False, 'details': {'make': True, 'model': False, 'color': True, 'year': True}, 'unverified_details': ['model'], 'features': ['Leather Seats', 'All Wheel Drive', 'Cruise Control'],'date': "04/24/2022"}
+
+        self.assertEqual(CarReports.from_document(test_report).car_id, '6265c76284e23511b9d08193')
+        self.assertEqual(CarReports.from_document(test_report).details, {'make': True, 'model': False, 'color': True, 'year': True})
+        self.assertEqual(CarReports.from_document(test_report).unverified_details, ['model'])
+        self.assertEqual(CarReports.from_document(test_report).date, "04/24/2022")
+        self.assertEqual(CarReports.from_document(test_report).features, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'])
+        self.assertEqual(CarReports.from_document(test_report).verified, False)
+
 
 if __name__ == "__main__":
     unittest.main()
