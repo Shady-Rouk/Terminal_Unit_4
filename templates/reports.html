@@ -20,7 +20,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="">EzWheels</a>
+    <a class="navbar-brand" href="/home">EzWheels</a>
     <ul class="navbar-nav ml-auto">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -54,16 +54,19 @@
         </div>
         {% endif %}
 
-        <h1> Please enter the ID of the car you wish to submit a report for </h1>
+        <div class='report-base'>
+        <h1 id="reports-header"> Please enter the ID of the car you wish to submit a report for </h1>
         
         <br>
         <form method="POST" action="/reports">
-        <input type="text" name="car_id" placeholder="Enter ID Here"> 
+        <input id="reports-field""type="text" name="car_id" placeholder="Enter ID Here"> 
         <label for="car_id"></label>
         <div>
         <br>
-        <input type="submit" value="SUBMIT">
+        <input id="reports-submit" type="submit" value="SUBMIT">
         </div>
+        </div>
+    </div>
         </form>
         
       
