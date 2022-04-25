@@ -1,12 +1,12 @@
 class Car:
-    def __init__(self, make, model, year, color, price, email, phone, picture, sold=False, verified = False):
+    def __init__(self, make, model, year, color, price, phone, email, picture, sold=False, verified = False):
         self.make = make
         self.model = model
         self.year = year
         self.color = color
         self.price = price
-        self.email = email
         self.phone = phone
+        self.email = email
         self.picture = picture
         self.sold = sold
         self.verified = verified
@@ -26,17 +26,17 @@ class Car:
         """
         if form == None:
             raise ValueError("Form data must be provided")
+        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['make']) != str or type(form['model']) != str or type(form['price']) != str or type(form['year']) != str or type(form['color']) != str: 
+            raise TypeError("Invalid format")
         if not(form['price'].isnumeric()):
             raise ValueError("Price not the right format")
         if not(form['year'].isnumeric()):
             raise ValueError("Year not the right format")
-        if type(form['phone']) != str or type(form['email']) != str or type(form['picture']) != str or type(form['make']) != str or type(form['model']) != str or type(form['price']) != str or type(form['year']) != str or type(form['color']) != str: 
-            raise TypeError("Invalid format")
         elif int(form['phone']) > 10000000000 or int(form['phone']) <= 999999999:
             raise ValueError("Number not the right format")
         else:
             form['sold'] = False
-            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'], form['sold'])
+            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'])
 
      
     @classmethod
@@ -52,7 +52,7 @@ class Car:
         """
         if document == None:
             raise ValueError("Form data must be provided")
-        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'])
+        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'], document['verified'])
 
     def to_document(self):
         """Converts a Car object instance to a dictionary format.

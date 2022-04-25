@@ -112,6 +112,12 @@ def new_car_report(car_id, details, features, date):
 
 
 def create_car(new_car):
+    """Creates a new Seller object and adds the details to the seller_information collection in the database
+    Collects car information from the request and calls the from_form method from the Car class. 
+    After a new_car_doc is created with the to_document method and inserted into the database
+    Returns:
+        Seller: An instance of the seller who just created an account.
+    """
     carDB = db.cars
     new_car = Car.from_form(new_car)
     new_car_doc = new_car.to_document()

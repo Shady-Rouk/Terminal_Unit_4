@@ -3,6 +3,33 @@ import unittest
 from seller import *
 from car import *
 
+class Test_Car(unittest.TestCase):
+    def setUp(self):
+        #self, make, model, year, color, price, email, phone, picture, sold=False, verified = False)
+        self.car1 = Car("Toyota", "Corolla", "2020", "Black", "30000", "8192104615", "david300@gmail.com", "https://www.seegertoyota.com/static/dealer-12152/MY20_Corolla_L_tcom_0209_001_DS_Front_7_8.png")
+        self.car2 = Car("Toyota", "Corolla", "2020", "Black", "30000", "2428072021", "david@gmail.com", "https://www.seegertoyota.com/static/dealer-12152/MY20_Corolla_L_tcom_0209_001_DS_Front_7_8.png")
+        self.car3 = Car("Honda", "Accord", "2018", "Red", "15000", "2428072021", "david@gmail.com", "https://www.motortrend.com/uploads/sites/11/2017/09/2018-Honda-Accord-2-0T-Sport-front-three-quarter-in-motion-02.jpg?fit=around%7C875:492")
+        self.car4 = Car("Tesla", "Model Y", "2020", "Red", "10000", "2028062020", "waw@gmail.com", "https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png")
+        self.car5 = Car("Tesla", "Model Y", "2020", "Red", "10000", "2028062444", "waw@yahoo.com", "https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png")
+    
+    def test_from_form(self):
+        self.assertRaises(TypeError, self.car5.from_form, {'make':2020, 'model':'Model Y', 'year': '2020', 'color': 'Red', 'price': '10000', 'phone':'800405212', 'email':'jonathan@techexchange.in', 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(TypeError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': '2020', 'color': 'Red', 'price': 10000, 'phone':'800405212', 'email':'jonathan@techexchange.in', 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(TypeError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': '2020', 'color': 'Red', 'price': '10000', 'phone':800405212, 'email':"jonathan@techexchange.in", 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(TypeError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': 2020, 'color': 'Red', 'price': '10000', 'phone':800405212, 'email':"jonathan@techexchange.in", 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(ValueError, self.car5.from_form, None)
+        self.assertRaises(ValueError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': '2020', 'color': 'Red', 'price': 'adam', 'phone':'800405212', 'email':'jonathan@techexchange.in', 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(ValueError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': 'adam', 'color': 'Red', 'price': '10000', 'phone':'800405212', 'email':'jonathan@techexchange.in', 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})
+        self.assertRaises(ValueError, self.car5.from_form, {'make':'Tesla', 'model':'Model Y', 'year': '2020', 'color': 'Red', 'price': '10000', 'phone':'8004052', 'email':'jonathan@techexchange.in', 'picture':"https://www.electrifying.com/files/NJrro9CgrZQIS_WL/TeslaModelY.png", 'sold' : False, 'verified': False})        
+    
+    def test_from_document(self):
+        self.assertRaises(ValueError, self.car5.from_document, None)
+    
+    def test_to_document(self):
+        self.assertEqual(self.car1.to_document(), {'make':'Toyota', 'model':'Corolla', 'year': '2020', 'color': 'Black', 'price': '30000', 'phone':'8192104615', 'email':'david300@gmail.com', 'picture':"https://www.seegertoyota.com/static/dealer-12152/MY20_Corolla_L_tcom_0209_001_DS_Front_7_8.png", 'sold' : False, 'verified': False})
+        self.assertEqual(self.car2.to_document(), {'make':'Toyota', 'model':'Corolla', 'year': '2020', 'color': 'Black', 'price': '30000', 'phone':'2428072021', 'email':'david@gmail.com', 'picture':"https://www.seegertoyota.com/static/dealer-12152/MY20_Corolla_L_tcom_0209_001_DS_Front_7_8.png", 'sold' : False, 'verified': False})
+        self.assertEqual(self.car3.to_document(), {'make':'Honda', 'model':'Accord', 'year': '2018', 'color': 'Red', 'price': '15000', 'phone':'2428072021', 'email':'david@gmail.com', 'picture':"https://www.motortrend.com/uploads/sites/11/2017/09/2018-Honda-Accord-2-0T-Sport-front-three-quarter-in-motion-02.jpg?fit=around%7C875:492", 'sold' : False, 'verified': False})
+
 
 class Test_Seller(unittest.TestCase):
     def setUp(self):
