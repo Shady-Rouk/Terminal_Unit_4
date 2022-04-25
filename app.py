@@ -181,6 +181,48 @@ def cars():
 # ABOUT Route
 @app.route('/about')
 def about():
+    return render_template('about.html')
+
+#CAR REPORTS Route
+@app.route('/reports/<car_id>', methods=['GET', 'POST'])
+def car_report(car_id):
+    if request.method == 'GET':
+        return render_template("CarReports.html", car_id=car_id)    
+    else:
+
+        details = {}
+        details['make'] = request.form.get('make', False)
+        details['model'] = request.form.get('model', False)
+        details['color'] = request.form.get('color', False)
+        details['year'] = request.form.get('year', False)
+        # if request.form.get('make'): 
+        #     details['make'] = True
+        features = request.form['features']
+        date = request.form['date']
+
+        new_car_report(car_id, details, features, date)
+
+        return render_template("reports.html", valid=True, approved=True)
+
+
+
+
+@app.route('/reports', methods=['GET', 'POST'])
+def reports():
+    if request.method == "GET":
+        return render_template("reports.html", valid=True, approved=False)
+    else:
+        car_id = request.form['car_id']
+        
+        valid = validate(car_id)
+        if not valid:
+            return render_template("reports.html", valid=False, approved=False)
+        car_exists = verify_id_exists(car_id)
+        if not car_exists:
+            return render_template("reports.html", valid=False, approved=False)
+        else:
+            return redirect('/reports/' + car_id)
+
     return render_template('about.html', session=session)
 
 # MARK_SOLD Route

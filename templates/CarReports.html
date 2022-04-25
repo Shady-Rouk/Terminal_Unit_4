@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
@@ -14,62 +15,78 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>About - EzWheels</title>
-
+    <title>Reports</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    {% if not session %}
-    <a class="navbar-brand" href="/home">EzWheels</a>
-    {% else %}
-    <a class="navbar-brand" href="#">EzWheels</a>
-    {% endif %}
+    <a class="navbar-brand" href="">EzWheels</a>
     <ul class="navbar-nav ml-auto">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsupported">
           <ul class="navbar-nav mr-auto">
-            {% if session %}
-            <li class="nav-item active">
-                  <a class="nav-link" href="/my_listings">My Listings<span class="sr-only">(current)</span></a>
+              <li class="nav-item active">
+                  <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
                 </li>
-            {% endif %}
-            <li class="nav-item active">
-                <a class="nav-link" href="/cars">Browse Cars <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item active">
                   <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
                 </li>
-                {% if not session %}
             <li class="nav-item active">
-                    <a class="nav-link" href="/sign_in">Sign In <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/sign_in">Sign In <span class="sr-only">(current)</span></a>
                 </li>
-            {% else %}
-            <li class="nav-item active">
-                <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
-                </li>
-            {% endif %}
             </ul>
         </div>
   </nav>
+  <body>
+    <form method='POST' action="/reports/{{car_id}}">
+    <div class="container">
+      <h1 class="details-header"> Please Tick Which Car Details Are Verified </h1>
+  
+      <div class="group">
+        <input type="checkbox" name="make" value=true/>
+        <label for="make"> Make Of The Car </label>
+      </div>
+  
+      <div class="group">
+        <input type="checkbox" name="model" value=true/>
+        <label for="model"> Model Of The Car </label>
+      </div>
+  
+      <div class="group">
+        <input type="checkbox" name="year" value=true/>
+        <label for="year"> Year Of The Car </label>
+      </div>
+  
+      <div class="group">
+        <input type="checkbox" name="color" value=true/>
+        <label for="color"> Color Of The Car </label>
+      </div>
 
-    <div class="about">
-        <h1 id="aboutTitle"> About Us</h1>
+      <br>
 
-        <br>  
-
-        <p id='aboutParagraph'>
-        EzWheels was founded by three Howard University students by the names of Adebola, Farouk, and Jonathan. 
-        EzWheels was initially created to make the process of buying a used car both EZ and safe. However, the 
-        the business took off after only three months of being operational and grew into the powerhouse it is today. 
-        EzWheels today competes with some of the biggest car dealerships in the United States of America while still allowing 
-        its users to be infront of their own steering wheel.  
-        </p>
-
+      <h1 class="report-date"> Enter the date of the report</h1>
+      <div>
+      <input type="date" name="date" placeholder="mm/dd/yyyy">
+      </div>
+  
+      <br>
+  
+      <h1 class="features-header"> Please Enter Any Additional Verified Features </h1>
+      <p> * please seperate each feature by a comma(',').</p>
+      <div class="group">
+        <input type="text" name="features" placeholder="Enter Additional Features Here">
+        
+      </div>
+      <br>
+      <div>
+        <input type="submit" value="SUBMIT">
+      </div>
+      
     </div>
-   
+    </form>
+    
+  </body>
 
-</body>
 </html>

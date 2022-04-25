@@ -531,6 +531,70 @@ div.create{
     cursor: pointer;
     border-radius: 5px;
 }
+
+.about {
+
+    text-align:center;
+    position: relative;
+    margin-right: 27%;
+    margin-left: 27%;
+    margin-bottom: 20%;
+    background-color: white;
+    border: 1px solid cadetblue;
+    border-radius: 5px;
+}
+
+
+.about{
+    background-image: url(../images/pexels-photo-5199517.jpeg);
+    height: 100vh;
+    width: 100vw;
+    margin:0;
+    padding:0;
+
+}
+
+#aboutParagraph{
+
+    position:relative;
+    top: 20px;
+    text-align: center;
+    margin-right: 27%;
+    margin-left: 27%;
+    margin-bottom: 20%;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: cadetblue;
+    border-image: initial;
+    border-radius: 5px;
+    
+}
+
+.error-box-approved{
+    background-color: rgb(202, 231, 191);
+    border: 1px solid rgb(133, 241, 123);
+    padding: 5px;
+    border-radius: 5px;      
+}
+
+/* #aboutTitle{
+
+    position:relative;
+    top: 20px;
+    text-align: center;
+    top: 60px;
+    margin-right: 27%;
+    margin-left: 27%;
+    margin-bottom: 20%;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: cadetblue;
+    border-image: initial;
+    border-radius: 5px;
+    
+} */
 .clean-block .content {
     box-shadow: 0px 2px 10px rgba(0,0,0,.075);
     background-color: #fff;
