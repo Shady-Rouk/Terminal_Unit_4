@@ -40,8 +40,22 @@ class CarReports:
 
         Returns:
             no return (void)
-
         '''
+
+        if type(car_id) != str:
+            raise TypeError("car_id must be of type string")
+        if type(details) != dict:
+            raise TypeError("details must be a dictionary")
+        if type(features) != list:
+            raise TypeError("features must be of type string")
+        if type(date) != str:
+            raise TypeError("date must be of type string")
+        if type(verified) != bool:
+            raise TypeError("verified must be type bool")
+        if type(unverified_details) != list:
+            raise TypeError("unverified_details should be a list")
+
+
         self.car_id = car_id
         self.details = details 
         self.features = features
@@ -59,7 +73,6 @@ class CarReports:
 
         Returns:
             a boolean value that represents whether or not all the core characteristics are verified. 
-
         '''
 
         is_verified = True
@@ -73,7 +86,6 @@ class CarReports:
     def getUnverified(self):
 
         '''
-
         Gets the unverified core characteristics of the car for sale. 
 
         Args:
@@ -81,7 +93,6 @@ class CarReports:
 
         Returns:
             A list of all the core characteristics of the car for sale that were not verified. 
-
         '''
         output = []
         for key, value in self.details.items():
@@ -125,5 +136,18 @@ class CarReports:
                 keys.append(key.lower())
             else:
                 keys.append(key)
+
+        if 'car_id' not in keys:
+            raise KeyError("The key 'car_id' does not exist in the document")
+        if 'details' not in keys:
+            raise KeyError("The key 'details' does not exist in the document")
+        if 'features' not in keys:
+            raise KeyError("The key 'features' does not exist in the document")
+        if 'date' not in keys:
+            raise KeyError("The key 'date' does not exist in the document")
+        if 'is_verified' not in keys:
+            raise KeyError("The key 'is_verified' does not exist in the document")
+        if 'unverified_details' not in keys:
+            raise KeyError("The key 'unverified_details' does not exist in the document")
 
         return CarReports(document['car_id'], document['details'], document['features'],  document['date'], document['is_verified'], document['unverified_details'])

@@ -2,6 +2,7 @@ import unittest
 
 from seller import *
 from car import *
+from CarReports import *
 
 class Test_Car(unittest.TestCase):
     def setUp(self):
@@ -71,6 +72,36 @@ class Test_Seller(unittest.TestCase):
         self.Seller1.add_car("020220xxsa841carid56205")
         self.assertIn("020220xxsa841carid56205", self.Seller1.cars)
         self.assertNotIn("020hvhv5841carid56205", self.Seller2.cars)        
+
+
+class Test_CarReports(unittest.TestCase):
+
+    def setUp(self):
+
+        self.assertRaises(TypeError, CarReports, 803829382938, {'make': True, 'model': True, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022")
+        self.assertRaises(TypeError, CarReports, '6265c76284e23511b9d08193', True, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022")
+        self.assertRaises(TypeError, CarReports, '6265c76284e23511b9d08193', {'make': True, 'model': True, 'color': True, 'year': True}, 'Leather Seats, All Wheel Drive, Cruise Control', "04/24/2022")
+        self.assertRaises(TypeError, CarReports, '6265c76284e23511b9d08193', {'make': True, 'model': True, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], ["04/24/2022"])
+        self.assertRaises(TypeError, CarReports, '6265c76284e23511b9d08193', {'make': True, 'model': True, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022", "True")
+        self.assertRaises(TypeError, CarReports, '6265c76284e23511b9d08193', {'make': True, 'model': True, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022", True, "color, model")
+
+        self.car_1 = CarReports('6265c76284e23511b9d08193', {'make': True, 'model': False, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022")
+        self.car_2 = CarReports('6265c76284e23511b9d08193', {'make': True, 'model': True, 'color': True, 'year': True}, ['Leather Seats', 'All Wheel Drive', 'Cruise Control'], "04/24/2022")        
+    
+    def test_isDetailsVerified(self):
+
+        self.assertFalse(self.car_1.isDetailsVerified())
+        self.assertTrue(self.car_2.isDetailsVerified())
+        self.assertEqual(self.car_1.verified,False)
+        self.assertEqual(self.car_2.verified, True)
+
+    def test_getUnverified(self):
+
+        self.assertEqual(self.car_1.getUnverified(), ['model'])
+        self.assertEqual(self.car_2.getUnverified(), [])
+        self.assertEqual(self.car_1.unverified_details, ['model'])
+        self.assertEqual(self.car_2.getUnverified(), [])
+
 
 if __name__ == "__main__":
     unittest.main()
