@@ -36,7 +36,7 @@ class Car:
             raise ValueError("Number not the right format")
         else:
             form['sold'] = False
-            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'], form['sold'])
+            return cls(form['make'], form['model'], form['year'], form['color'], form['price'], form['phone'], form['email'], form['picture'])
 
      
     @classmethod
@@ -52,7 +52,7 @@ class Car:
         """
         if document == None:
             raise ValueError("Form data must be provided")
-        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'])
+        return cls(document['make'], document['model'], document['year'], document['color'], document['price'], document['phone'], document['email'], document['picture'], document['sold'], document['verified'])
 
     def to_document(self):
         """Converts a Car object instance to a dictionary format.
